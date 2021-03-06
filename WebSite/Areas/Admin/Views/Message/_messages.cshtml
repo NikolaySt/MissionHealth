@@ -1,0 +1,28 @@
+﻿@using SocialNet.Backend.DataObjects
+@model List<Message>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-12 message">
+            <section data-id="@item.Id">
+                <div class="col-sm-12 padding-left-0">
+                    <h4> @item.Name, @item.EMail </h4>
+                    <ul class="list-inline padding-10">
+                        <li>
+                            <span><i class="fa fa-calendar"></i> @item.Created.ToString() </span>
+                        </li>
+                    </ul>
+
+                    <p>@item.Text.TruncateAtWord(100)</p>
+                    <div class="status-operations">
+                        <a class="btn btn-primary read"> Прочети </a>
+                        <a class="btn btn-danger delete pull-right"><i class="fa fa-close"></i> Изтрий </a>
+                    </div>
+                </div>
+            </section>
+            <div class="clearfix"></div>
+            <div style="margin-top: 20px"></div>
+            <hr />
+        </div>
+    }
+</div>

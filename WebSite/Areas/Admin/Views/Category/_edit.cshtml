@@ -1,0 +1,50 @@
+﻿@using SocialNet.Backend.DataObjects
+@model ArticleCategory
+@using (@Html.BeginForm("Edit", "Category", FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id)
+    <fieldset>
+        <div class="form-group margin-bottom-5">
+            <label>Област на английски</label>
+            @Html.EditorFor(m => m.AreaValue, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AreaValue, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group margin-bottom-5">
+            <label>Област на български</label>
+            @Html.EditorFor(m => m.AreaName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group margin-bottom-5">
+            <label>Категория на анскийски</label>
+            @Html.EditorFor(m => m.CategoryValue, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CategoryValue, "", new { @class = "text-danger" })            
+        </div>
+
+        <div class="form-group margin-bottom-5">
+            <label>Категория на български</label>
+            @Html.EditorFor(m => m.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group margin-bottom-5">
+            <label>Подкатегория на анскийски</label>            
+            @Html.EditorFor(m => m.SubCategoryValue, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SubCategoryValue, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group margin-bottom-5">
+            <label>Подкатегория на български</label>
+            @Html.EditorFor(m => m.SubCategoryName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SubCategoryName, "", new { @class = "text-danger" })
+        </div>
+    </fieldset>
+    <footer class="pull-right">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Затвори</button>
+        <button type="submit" class="btn btn-primary">Запис</button>
+    </footer>
+    <div class="clearfix"></div>
+}
+
+

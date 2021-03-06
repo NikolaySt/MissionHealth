@@ -1,0 +1,25 @@
+﻿@using SocialNet.WebSite.Areas.Book.Models
+@model BookRequestViewModel
+@using (Html.BeginForm("request", "review", FormMethod.Post, new { @class = "sky-form simple-form", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <fieldset>
+        @Html.HiddenFor(m => m.BookId)
+        <label class="input g-mb-20">
+            <span class="icon-append icon-user"></span>
+            @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "rounded-2x", placeholder = "Вашето име" } })
+            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+        </label>
+        <label class="input g-mb-20">
+            <span class="icon-append icon-envelope-open"></span>
+            @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "rounded-2x", placeholder = "Вашият Email" } })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </label>
+        <button class="btn-u btn-u-lg btn-u-blue btn-u-upper rounded-2x g-width-100" type="submit">Вземи своя наръчник</button>
+        <div class="g-mt-20">
+            <img class="ssl-image" src="~/assets/img/logo_rapidssl.gif" />
+            <span>* Вашите данни няма да бъде предоставяни на трети страни или разпространявани и се предават криптирани през интернет.</span>
+        </div>
+    </fieldset>
+}

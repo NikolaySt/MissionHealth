@@ -1,0 +1,57 @@
+﻿@model string[]
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_blankLayout.cshtml";
+}
+<div class="row" style="margin: 20px">
+    @Html.Partial("_galleryContainer", Model)
+    <a class="btn btn-primary close-window pull-right">Затвори</a>
+    <div class="clearfix"></div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".superbox").on("click", "#imgInfoBox .select", function () {
+                var file = $(this).closest("#imgInfoBox").attr("src");
+                SelectImage(file);
+            });
+            $(".close-window").click(function () {
+                Close()
+            });
+        });
+        
+        function GetUrlParam(varName, url) {
+            var ret = '';
+            if (!url)
+                url = self.location.href;
+            if (url.indexOf('?') > -1) {
+                url = url.substr(url.indexOf('?') + 1);
+                url = url.split('&');
+                for (i = 0; i < url.length; i++) {
+                    var tmp = url[i].split('=');
+                    if (tmp[0] && tmp[1] && tmp[0] == varName) {
+                        ret = tmp[1];
+                        break;
+                    }
+                }
+            }
+            return ret;
+        }
+
+        function Close() {
+            var win = (window.opener ? window.opener : window.parent);
+            win.tinyMCE.activeEditor.windowManager.close();
+        }
+
+        function SelectImage(fullPath) {
+            var win = (window.opener ? window.opener : window.parent);
+            win.document.getElementById(GetUrlParam('input')).value = fullPath;
+            if (typeof (win.ImageDialog) != "undefined") {
+                if (win.ImageDialog.getImageData)
+                    win.ImageDialog.getImageData();
+                if (win.ImageDialog.showPreviewImage)
+                    win.ImageDialog.showPreviewImage(fullPath);
+            }
+            win.tinyMCE.activeEditor.windowManager.close();
+        }
+    </script>
+}

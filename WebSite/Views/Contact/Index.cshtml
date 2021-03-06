@@ -1,0 +1,87 @@
+﻿@model  ContactViewModel
+<div class="container content-sm">
+    <div class="row margin-bottom-30">
+        <div class="col-md-9 mb-margin-bottom-30">
+            <div class="headline"><h2>Форма за контакт</h2></div>
+            <p>Пишете ми, ще се опитам да ви отговоря максимално бързо.</p><br />
+            @if (ViewBag.Success != null && ViewBag.Success)
+            {
+                <label class="text-success"><i class="fa fa-check"></i>@ViewBag.Message</label>
+            }
+            @if (ViewBag.Success != null && !ViewBag.Success)
+            {
+                <label class="text-danger"><i class="fa fa-close"></i>@ViewBag.Message</label>
+            }
+            @using (@Html.BeginForm("index", "contact", FormMethod.Post, new { @class = "sky-form contact-style" }))
+            {
+                @Html.AntiForgeryToken()
+                <fieldset class="no-padding">
+                    @Html.LabelFor(m => m.Name)
+                    <div class="row sky-space-20">
+                        <div class="col-md-7 col-md-offset-0">
+                            <div>
+                                @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(m => m.Name, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    @Html.LabelFor(m => m.EMail)
+                    <div class="row sky-space-20">
+                        <div class="col-md-7 col-md-offset-0">
+                            <div>
+                                @Html.EditorFor(m => m.EMail, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(m => m.EMail, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    @Html.LabelFor(m => m.Text)
+                    <div class="row sky-space-20">
+                        <div class="col-md-11 col-md-offset-0">
+                            <div>
+                                @Html.TextAreaFor(m => m.Text, new { @rows = 8, @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Text, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row sky-space-20">
+                        <div class="col-md-11 col-md-offset-0">
+                            <div class="pull-right">
+                                <div class="g-recaptcha" data-sitekey="6LcUMSATAAAAALUVXOsUKtF_EBwuCiKocdzWMjp3"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row sky-space-20">
+                        <div class="col-md-11 col-md-offset-0">
+                            <div class="pull-right">
+                                <p><button type="submit" class="btn-u">Изпрати</button></p>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>}
+        </div><!--/col-md-9-->
+        <div class="col-md-3">
+            <!-- Contacts -->
+            <div class="headline"><h2>Контакти</h2></div>
+            <ul class="list-unstyled who margin-bottom-30">
+                <li><a href="#"><i class="fa fa-home"></i>България, 4023 Пловдив</a></li>
+                <li><a href="#"><i class="fa fa-globe"></i>https://www.misiazdrave.bg</a></li>
+            </ul>
+        </div><!--/col-md-3-->
+    </div><!--/row-->
+</div><!--/container-->
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/contact")
+    <script src='https://www.google.com/recaptcha/api.js'></script>    
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            ContactPage.initMap();
+        });
+    </script>
+}
+@section styles{
+    @Styles.Render("~/content/css/contact")
+}
+
+

@@ -1,0 +1,726 @@
+body {
+    font-family: "Simbal-Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1.5em;
+}
+
+p, li, li a, label {
+    color: #000;
+}
+
+.wrapper {
+    height: 100%;
+}
+
+.select {
+    cursor: pointer;
+}
+
+.autoWidth {
+    margin: auto;
+}
+
+.blog-medium .blog-info li, .blog-medium .blog-info li a {
+    color: #ABABAB;
+}
+
+.blog a:hover,
+.blog ol li a
+{
+    color: #3498db;
+    text-decoration: none;
+}
+
+article .text {
+    font-size: 1.2em;
+}
+
+.bg-color-white {
+    color: #000;
+    font-size: 1.2em;
+}
+
+.header {
+    border-bottom: solid 1px #eee;
+    padding-top: 5px;
+}
+
+@media (min-width: 992px) {
+    .header .navbar-nav > li > a {
+        padding: 9px 20px 9px 20px;
+    }
+
+    .header .navbar-nav .search-open {
+        width: 592px;
+    }
+}
+
+.header .dropdown > a:after {
+    right: 10px;
+}
+
+.header .logo img {
+    height: 45px;
+    margin: 3px;
+}
+
+.header .logo {
+    height: 100%;
+    min-height: 40px;
+    min-width: 100px;
+    display: initial;
+    vertical-align: middle;
+}
+
+.header .nav > li > .search {
+    color: #72c02c;
+    min-width: 40px;
+    font-size: 1.5em;
+    background: none;
+    border-bottom: none;
+    padding: 7px;
+}
+
+.header .navbar-nav > li > a {
+    /*font-family: 'PT Sans', sans-serif;*/
+    font-size: 19px;
+    text-transform: capitalize;
+    font-weight: normal;
+    color: #72c02c;
+}
+
+.header .navbar-nav > .active > a {
+    color: #009CD4;
+    border-bottom: solid 2px #009CD4;
+}
+
+.header .dropdown-menu li a {
+    font-size: 1.1em;
+    color: black;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.header .navbar-toggle .fa {
+    color: #72c02c;
+    font-size: 29px;
+}
+
+.header .navbar-toggle:hover {
+    background: none !important;
+}
+
+.header .navbar-toggle span:hover {
+    color: #3498db;
+}
+
+.header .navbar-toggle:focus {
+    color: #2980b9;
+    background: none;
+}
+
+.boxed-layout {
+    padding: 0;
+    box-shadow: 0 0 5px #ccc;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.herald article {
+    margin: 2px;
+}
+
+    .herald article header {
+        position: absolute;
+        z-index: 100;
+        bottom: 0px;
+        width: 100%;
+        margin-bottom: 0;
+        padding: 5px;
+    }
+
+        .herald article header p {
+            font-weight: normal;
+            font-style: italic;
+            color: white;
+            font-weight: 700 !important;
+            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+        }
+
+        .herald article header p,
+        .herald article header h4 {
+            color: white;
+            color: white;
+            font-weight: 700 !important;
+            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+        }
+
+        .herald article header a,
+        .herald article header a:hover {
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+.herald .row {
+    margin: 0px;
+}
+
+.herald .col-sm-6 {
+    padding: 0px;
+}
+
+
+
+
+.thumbnails-v1 {
+    padding: 5px;
+}
+
+.breadcrumbs-v3.img-v2 {
+    background: url('../img/image-about-me-large.jpg') no-repeat;
+    background-size: contain;
+    background-position: center center;
+    background-position-y: 0;
+    background-color: rgb(37, 66, 12);
+}
+
+/*ABOUT*/
+
+.about-us {
+    text-align: center;
+}
+
+    .about-us p {
+        font-weight: bold;
+        font-size: 2.0em;
+        color: white;
+        text-align: center;
+    }
+
+    .about-us .scroll i {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+.about-us-info span {
+    font-size: 1.2em;
+}
+
+.about-us-info p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    font-weight: bold;
+    color: #294A0C;
+}
+
+/*--------------------------------------------------
+	[22. Quote]
+----------------------------------------------------*/
+.quote-v1 {
+    padding: 60px 0;
+    text-align: center;
+    background-image: none;
+    background-color: #25420C;
+}
+
+    .quote-v1 p {
+        color: #fff;
+        font-size: 22px;
+        font-weight: 200;
+        padding: 0 100px;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+        .quote-v1 p:before {
+            color: #72c02c;
+            font-size: 60px;
+            position: absolute;
+            margin: -30px 0 0 -40px;
+            font-family: Georgia, serif;
+        }
+
+    .quote-v1 span {
+        color: #fff;
+        font-size: 18px;
+    }
+
+@media (max-width: 768px) {
+    .quote-v1 p {
+        font-size: 18px;
+        padding: 0 0px;
+    }
+}
+
+
+/*Blog Posts
+------------------------------------*/
+.posts .dl-horizontal a {
+    color: #333;
+}
+.posts .dl-horizontal {
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+    .posts .dl-horizontal dt {
+        width: 60px;
+        float: left;
+    }
+        .posts .dl-horizontal dt img {
+            width: 60px;
+            height: 60px;
+            padding: 2px;
+            margin-top: 2px;
+            border: solid 1px #ddd;
+        }
+    .posts .dl-horizontal dd {
+        margin-left: 70px;
+    }
+    .posts .dl-horizontal .no-margin {
+        margin-left: 0px !important;
+    }
+    .posts .dl-horizontal dd p {
+        margin: 0;
+    }
+    .posts .dl-horizontal dd a {
+        font-size: 1.2em;
+        display: block;
+    }
+        .posts .dl-horizontal dd a:hover {
+            text-decoration: none;
+        }
+    .posts .dl-horizontal:hover dt img,
+    .posts .dl-horizontal:hover dd a {
+        transition: all 0.2s ease-in-out;
+    }
+
+/*Social Icons*/
+.social-icons {
+    margin-top: 5px;
+}
+
+    .social-icons li {
+        margin: 0;
+        padding-right: 5px;
+    }
+
+        .social-icons li a {
+            margin: 0 3px;
+            box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2),0 3px 3px 0 rgba(0,0,0,0.19) !important;
+        }
+
+
+.footer-v2 {
+    margin-top: 10px;
+}
+
+.news-v3 h2 {
+    text-transform: none;
+}
+
+@media (max-width: 991px) {
+    .header .navbar-toggle {
+        top: 0px;
+        position: absolute;
+        right: 20px;
+        background: none;
+        border: none;
+    }
+
+    .header .topbar {
+        display: none;
+    }
+
+    .header .nav > li > .search {
+        padding: 11px 0 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-us p {
+        font-size: 1.2em;
+    }
+
+    .about-us .container .logo {
+        display: none;
+    }
+}
+
+a.read-more {
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+    a.read-more:hover {
+        text-decoration: none;
+    }
+
+.read-more {
+    color: #3498db;
+}
+
+
+/*--------------------------------------------------
+	[44. Back To Top]
+----------------------------------------------------*/
+#topcontrol {
+    color: #fff;
+    z-index: 99;
+    width: 40px;
+    height: 60px;
+    font-size: 35px;
+    background: #222;
+    position: relative;
+    right: 14px !important;
+    bottom: 11px !important;
+    border-radius: 3px !important;
+}
+
+    #topcontrol:after {
+        top: -2px;
+        left: 8.5px;
+        content: "\f106";
+        position: absolute;
+        text-align: center;
+        font-family: FontAwesome;
+    }
+
+    #topcontrol:hover {
+        color: #fff;
+        background: #72c02c;
+        transition: all 0.3s ease-in-out;
+    }
+
+.social-icons-color li a {
+    opacity: 1;
+}
+
+.news-v3-in {
+    padding: 0px;
+}
+
+.cover-my-pharmacy {
+    background: url(../img/breadcrumbs/cover-my-pharmacy.jpg) no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 433px;
+}
+
+.cover-nutrition-diets {
+    background: url(../img/breadcrumbs/cover-nutrition-diets.jpg) no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 433px;
+}
+
+.cover-nutrition-recipes {
+    background: url(../img/breadcrumbs/cover-nutrition-recipes.jpg) no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 433px;
+}
+
+.cover-home-page {
+    background: url(../img/breadcrumbs/cover-home-page.jpg) no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.cover-home-cosmetic {
+    background: url(../img/breadcrumbs/cover-home-cosmetic.jpg) no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 433px;
+}
+
+.cover-nutrition-articles {
+    background: url(../img/breadcrumbs/../img/breadcrumbs/cover-nutrition-articles.jpg) no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 433px;
+}
+
+.cover-health {
+    background: url(../img/breadcrumbs/cover-health.jpg) no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 433px;
+}
+
+.da-slider {
+    width: 100%;
+    height: 650px;
+    background: transparent url(../img/breadcrumbs/cover-home-page.jpg) repeat 0% 0%;
+}
+
+.slider-inner .da-dots {
+    display: none;
+}
+
+.home-bg {
+    background: transparent url(../img/breadcrumbs/cover-home-page.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 650px;
+}
+
+.post-info a, .post-info li {
+    color: #ABABAB;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.cover .book-me {
+    position: absolute;
+}
+
+    .cover .book-me .text {
+        position: absolute;
+    }
+
+        .cover .book-me .text h1 {
+            line-height: normal;
+            top: 100px;
+            z-index: 10;
+            padding: 0;
+            margin-left: -2%;
+            font-weight: 400 !important;
+        }
+
+            .cover .book-me .text h1 i {
+                font-size: 20px;
+                font-family: 'Open Sans', sans-serif;
+                padding: 0px;
+                text-transform: none;
+                color: green;
+                font-style: normal;
+            }
+
+.cover .text-me {
+    position: absolute;
+}
+
+    .cover .text-me h1 {
+        line-height: normal;
+        top: 100px;
+        z-index: 10;
+        padding: 0;
+        margin-left: -2%;
+        font-weight: 400 !important;
+    }
+
+        .cover .text-me h1 i {
+            font-size: 25px;
+            font-family: 'Open Sans', sans-serif;
+            padding: 0px;
+            text-transform: none;
+            color: green;
+            font-style: normal;
+        }
+
+        .cover .text-me h1 span {
+            font-size: 25px;
+            padding: 0px;
+            text-transform: none;
+            font-style: normal;
+        }
+
+        .cover .text-me h1 div {
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .cover .text-me h1 .cover-text-home-cosmetic {
+            background-color: rgba(255, 255, 255, 0.65);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+            .cover .text-me h1 .cover-text-home-cosmetic span {
+                color: #3C671F;
+            }
+
+        .cover .text-me h1 .cover-text-recipe span {
+            color: white;
+        }
+
+@media (max-width: 400px) {
+    .cover .text-me h1 {
+        line-height: 0.5em !important;
+    }
+}
+
+@media (max-width: 1050px) {
+    .cover .book-me .text h1 {
+        line-height: 0.7em !important;
+    }
+}
+
+
+
+.hidden-info-xs {
+    display: normal;
+}
+
+.hidden-info-md {
+    display: normal;
+}
+
+.hidden-info-lg {
+    display: normal;
+}
+
+@media (max-width: 600px) {
+    .hidden-info-xs {
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .hidden-info-md {
+        display: none;
+    }
+}
+
+@media (max-width: 1200px) {
+    .hidden-info-lg {
+        display: none;
+    }
+}
+
+
+.button-video-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -35px;
+    margin-left: -35px;
+    width: 70px;
+    height: 70px;
+}
+
+input[type=checkbox] {
+    /* All browsers except webkit*/
+    transform: scale(1.5);
+    /* Webkit browsers*/
+    -webkit-transform: scale(1.5);
+}
+
+.padding-top-20 {
+    padding-top: 20px;
+}
+
+.book-cover {
+    box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+}
+
+.social-article-box {
+    position: absolute;
+    left: -200px;
+}
+
+.social-container {
+}
+
+    .social-container .btn {
+        font-size: 1.4em;
+        font-weight: 400;
+        color: #FDFDFD;
+        border-radius: 5px;
+        box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2),0 3px 3px 0 rgba(0,0,0,0.19) !important;
+    }
+
+        .social-container .btn:hover {
+            color: #FDFDFD;
+            box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+        }
+
+
+    .social-container .btn-fix {
+        width: 200px !important;
+    }
+
+    .social-container .btn-facebook {
+        background-color: #3b5998;
+    }
+
+    .social-container .btn-facebook {
+        background-color: #3b5998;
+    }
+
+    .social-container .btn-twitter {
+        background-color: #00aced;
+    }
+
+    .social-container .btn-pinterest {
+        background-color: #cb2027;
+    }
+
+    .social-container .btn-social {
+        position: relative;
+        padding-left: 55px;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        font-weight: 400;
+    }
+
+        .social-container .btn-social > :first-child {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 55px;
+            line-height: 45px;
+            text-align: center;
+            vertical-align: middle;
+            border-right: 1px solid rgba(38,55,80,0.3);
+        }
+
+.container-book-review a:hover {
+    text-decoration: none;
+}
+
+.container-book-review .text {
+    font-size: 1.2em;
+}
+/*--------------------------------------------------
+	[31. Blog Post Author]
+----------------------------------------------------*/
+.blog-author {
+    padding: 20px;
+    background: #fff;
+}
+
+    .blog-author img {
+        width: 120px;
+        height: auto;
+        margin-right: 10px;
+        margin: auto;
+        border-radius: 60px;
+        -webkit-border-radius: 60px;
+        -moz-border-radius: 60px;
+    }
+
+    .blog-author .blog-author-desc {
+        overflow: hidden;
+    }
+
+        .blog-author .blog-author-desc h4 {
+            float: left;
+            font-size: 18px;
+            margin: 0 0 10px;
+            text-transform: uppercase;
+        }
+
+        .blog-author .blog-author-desc ul {
+            float: right;
+            margin-top: 6px;
+        }
+
+        .blog-author .blog-author-desc p {
+            font-size: 1.2em;
+        }

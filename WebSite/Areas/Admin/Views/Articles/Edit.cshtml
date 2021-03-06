@@ -1,0 +1,195 @@
+﻿@using SocialNet.WebSite.Areas.Admin.Models
+@model ArticleViewModel
+<form class="form-horizontal post-form" method="post">
+    @Html.HiddenFor(m => m.Id)
+    @Html.ValidationSummary()
+    <div class="row">
+        <div class="col-md-4">
+            @if (string.IsNullOrWhiteSpace(Model.Id))
+            {
+                <button class="btn btn-primary submit" type="submit">Създай</button>}
+            else
+            {
+                var categoryValue = Model.CategoryValue.Split('.')[1];
+                var subCategoryValue = Model.CategoryValue.Split('.')[2];
+                var articleUrl = Url.ActionCategory(Model.AreaValue, categoryValue, subCategoryValue, Model.Id);
+                <a href="@articleUrl" target="_blank"><h4 class="margin-top-0"><span> (Преглед) </span> @Model.Title </h4></a>
+                <button class="btn btn-primary submit" type="submit">Запис</button>}
+            <a href="@Url.Action("", "Articles")" class="btn">Затвори</a>
+        </div>
+        <div class="col-md-8">
+            @Html.Partial("_articleOptions", Model)
+        </div>
+    </div>
+    <div class="no-padding">
+        @Html.TextAreaFor(m => m.HtmlRaw, new { @rows = 25 })
+    </div>
+    @Html.HiddenFor(m => m.Text)
+</form>
+
+<div class="modal fade" id="formGallery" tabindex="-1" role="dialog" aria-labelledby="Gallery" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Снимки</h4>
+            </div>
+            <div class="modal-body">
+                <div class="gallery-container"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Затвори
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#AreaValue").trigger("click");
+
+            tinymce.init({
+                selector: "#HtmlRaw",
+                plugins: [
+                        "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+                        "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                        "table contextmenu directionality emoticons template textcolor paste fullpage textcolor colorpicker textpattern"
+                ],
+                toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter | alignright alignjustify | styleselect | formatselect | fontselect | fontsizeselect | cut copy paste | searchreplace",
+                toolbar2: "bullist numlist | outdent indent blockquote | undo redo | link unlink anchor | image media code | insertdatetime preview | forecolor backcolor",
+                toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking | template pagebreak restoredraft",
+
+                menubar: true,
+                toolbar_items_size: 'normal',
+                relative_urls: false,
+                convert_urls: false,
+                remove_script_host: false,
+                content_css: [
+                    "../../../assets/css/tinymce-bootstrap.css",
+                    "../../../assets/css/style.css",
+                    "../../../assets/plugins/animate.css",
+                    "../../../assets/plugins/line-icons/line-icons.css",
+                    "../../../assets/plugins/font-awesome/css/font-awesome.min.css",
+                    "../../../assets/css/theme-colors/blue.css",
+                    "../../../assets/css/theme-skins/dark.css",
+                    "../../../assets/css/custom.css",
+                ],
+                image_advtab: true,
+                plugin_preview_width: "900",
+                plugin_preview_height: "600",
+                plugin_preview_pageurl: "./../plugins/preview/example.htm",
+                file_browser_callback: fileBrowser,
+                style_formats: [
+                        { title: 'Bold text', inline: 'b' },
+                        { title: 'Red text', inline: 'span', styles: { color: '#ff0000' } },
+                        { title: 'Red header', block: 'h1', styles: { color: '#ff0000' } },
+                        { title: 'Example 1', inline: 'span', classes: 'example1' },
+                        { title: 'Example 2', inline: 'span', classes: 'example2' },
+                        { title: 'Table styles' },
+                        { title: 'Table row 1', selector: 'tr', classes: 'tablerow1' }
+                ],
+                image_class_list: [
+                    { title: 'None', value: '' },
+                    { title: 'Image Responsive', value: 'img-responsive full-width' },
+                    { title: 'Image Circle', value: 'img-circle' },
+                    { title: 'Image Rounded', value: 'img-rounded' },
+                    { title: 'Image Thumbnail', value: 'img-thumbnail' }
+                ],
+                templates: [
+                        { title: 'Container', content: "<div class='container'>{container}</div>" },
+                        {
+                            title: "Two columns",
+                            content: "<div class='row'><div class='col-md-6'>{Column one}</div><div class='col-md-6'>{Column two}</div></div>",
+                        },
+                        {
+                            title: "Three columns",
+                            content: "<div class='row'><div class='col-md-4'>{Column one}</div><div class='col-md-4'>{Column two}</div><div class='col-md-4'>{Column three}</div></div>",
+                        },
+                        {
+                            title: "Headline",
+                            content: "<div class='headline'><h2 class='heading-sm'>headline</h2></div>"
+                        },
+                        {
+                            title: "Dropcaps",
+                            content: "<span class='dropcap-bg rounded-x'>D</span>"
+                        },
+                        {
+                            title: "Box Shadow",
+                            content: "<div class='tag-box tag-box-v2 box-shadow shadow-effect-1'><h2>Заглавие</h2><p>Текс</p></div>"
+                        }
+
+                ]
+            });
+
+            var loadedGallery = false;
+            $('#formGallery').on('show.bs.modal', function (event) {
+                //if (loadedGallery) return;
+                var modal = $(this);
+                var button = $(event.relatedTarget);
+                var callback = button.data("callback");
+                container = modal.find('.modal-body .gallery-container');
+                container.html(spinnerCircle());
+                $.ajax({
+                    type: 'GET',
+                    url: "@Url.Action("gallery")?selectcallback=" + callback,
+                    success: function (result, message, ctx) {
+                        container.html(result);
+                        loadedGallery = true;
+                    },
+                    error: function (result, message, ctx) {
+                        container.html(result.responseText);
+                    }
+                });
+            })
+
+            $("#AreaValue").change(function () {
+                var area = $(this).val();
+                var containerResults = $("#categoryOptions");
+                $.ajax({
+                    type: 'GET',
+                    url: "@Url.Action("getcategories")?area=" + area,
+                    success: function (result, message, ctx) {
+                        containerResults.html(result);
+                    },
+                    error: function (result, message, ctx) {
+                        containerResults.html("");
+                        toastr.error(result);
+                    }
+                });
+            });
+
+            $(".post-form .submit").click(function () {
+                $("#Text").val(tinyMCE.activeEditor.getBody().textContent);
+                @{if (!string.IsNullOrWhiteSpace(Model.Id))
+                    {
+                        @:if (confirm('Статията ще бъде презаписана. Наистина ли желаете това?'))
+                                                                @:    return true;
+                                                                @: else return false;
+                                                    }
+                }
+            });
+
+            function fileBrowser(field_name, url, type, win) {
+                var browser = "@Url.Action("gallery")";
+                browser += '?input=' + field_name + '&value=' + document.getElementById(field_name).value;
+                tinyMCE.activeEditor.windowManager.open({
+                    file: browser,
+                    title: 'Browser',
+                    width: 900,
+                    height: 900,
+                    resizable: "yes",
+                    plugins: "media",
+                    inline: "yes",
+                    close_previous: "no"
+                }, { window: win, input: field_name });
+                return false;
+            }
+        });
+    </script>
+}

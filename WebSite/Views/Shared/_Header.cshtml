@@ -1,0 +1,79 @@
+﻿<div class="header header-sticky">
+    <div class="container">
+        <a class="logo" href="~/">
+            <img src="~/assets/img/misia-zdrave-logo-small.png" alt="Мисия Здраве" />
+        </a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse navbar-responsive-collapse">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li class="@Html.IsSelected(area: "", controller: "home", action : "index" )">
+                    <a href="~/">Начало</a>
+                </li>
+                <li class="@Html.IsSelectedCategory(area: "health")">
+                    <a href="~/Blog/Health">Здраве</a>
+                </li>
+                <li class="dropdown @Html.IsSelectedCategory(area: "Nutrition")">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Хранене</a>
+                    <ul class="dropdown-menu">
+                        <li class="@Html.IsSelectedCategory(area: "Nutrition", category: "Articles")">
+                            <a href="~/Blog/Nutrition/Articles">
+                                Статии
+                            </a>
+                        </li>
+                        @*<li class="@Html.IsSelectedCategory(area: "Nutrition", category: "Programs" )">
+                            <a href="~/Blog/Nutrition/Programs">
+                                Режими
+                            </a>
+                        </li>*@
+                        <li class="@Html.IsSelectedCategory(area: "Nutrition", category: "Recipes")">
+                            <a href="~/Blog/Nutrition/Recipes">
+                                Рецепти
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown @Html.IsSelectedCategory(area: "MyPharmacy")">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Моята Аптека</a>
+                    <ul class="dropdown-menu">
+                        <li class="@Html.IsSelectedCategory(area: "MyPharmacy", category: "Supplements")">
+                            <a href="~/Blog/MyPharmacy/Supplements">
+                                Добавки и Лекарства
+                            </a>
+                        </li>
+                        <li class="@Html.IsSelectedCategory(area: "MyPharmacy", category: "HomeCosmetics" )">
+                            <a href="~/Blog/MyPharmacy/HomeCosmetics">
+                                Домашна козметика
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="@Html.IsSelected(area: "", controller: "AboutMe")">
+                    <a href="@Url.Action("", "AboutMe", new { area="" })">За мен</a>
+                </li>
+                <li>
+                    <i class="search fa fa-search search-btn"></i>
+                    <form action="@Url.Action("", "Search", new { area="" })" method="post" class="search-open">
+                        @Html.AntiForgeryToken()
+                        <div class="input-group animated fadeInDown">
+                            <input type="text" name="criteria" id="criteria" class="form-control" placeholder="Търсене по заглавия, статия или ключови думи...">
+                            <span class="input-group-btn">
+                                <button class="btn-u" type="submit">Търси</button>
+                            </span>
+                        </div>
+                    </form>
+                </li>
+                <li>
+                    <ul class="social-icons social-icons-color">
+                        <li><a class="social-icon-md social_facebook" href="https://facebook.com/misiazdrave"></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+

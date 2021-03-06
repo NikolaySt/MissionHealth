@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5166CAFC-F622-401C-90CC-707DCB0815AC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SocialNet.Backend.DataObjects</RootNamespace>
+    <AssemblyName>SocialNet.Backend.DataObjects</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Message.cs" />
+    <Compile Include="Application.cs" />
+    <Compile Include="Content\Content.cs" />
+    <Compile Include="Content\ContentFormat.cs" />
+    <Compile Include="Content\ContentType.cs" />
+    <Compile Include="Course\Course.cs" />
+    <Compile Include="Course\Module.cs" />
+    <Compile Include="Features\DownloadBookFeature.cs" />
+    <Compile Include="Features\ConfirmEmailFeature.cs" />
+    <Compile Include="Features\CustomHtmlPageFeature.cs" />
+    <Compile Include="Features\EncryptPasswordFeature.cs" />
+    <Compile Include="Features\Feature.cs" />
+    <Compile Include="Features\MailAccountSettings.cs" />
+    <Compile Include="Features\ResetPasswordFeature.cs" />
+    <Compile Include="Course\Lesson.cs" />
+    <Compile Include="Log\Log.cs" />
+    <Compile Include="Log\LogException.cs" />
+    <Compile Include="Log\LogLevel.cs" />
+    <Compile Include="Log\LogStatus.cs" />
+    <Compile Include="Photo\Photo.cs" />
+    <Compile Include="Photo\PhotoCategory.cs" />
+    <Compile Include="Article\ArticleCategory.cs" />
+    <Compile Include="Article\Artcile.cs" />
+    <Compile Include="Shared\DataObject.cs" />
+    <Compile Include="Shared\IdDataObject.cs" />
+    <Compile Include="Shared\PagedResult.cs" />
+    <Compile Include="Shared\SocialNetwork.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\VisibilityDataObject.cs" />
+    <Compile Include="Shared\VisibilityStatus.cs" />
+    <Compile Include="User\UserEmailStatus.cs" />
+    <Compile Include="User\User.cs" />
+    <Compile Include="User\UserCredential.cs" />
+    <Compile Include="User\UserCredentialStatus.cs" />
+    <Compile Include="User\UserCredentialType.cs" />
+    <Compile Include="User\UserRoles.cs" />
+    <Compile Include="User\UserToken.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

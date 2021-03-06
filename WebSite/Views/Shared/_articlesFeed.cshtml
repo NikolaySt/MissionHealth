@@ -1,0 +1,128 @@
+﻿@using SocialNet.Backend.DataObjects
+@model List<Article>
+@foreach (var item in Model)
+{
+    var articleUrl = Url.ActionArticle(item);
+    var subCategoryUrl = Url.ActionSubCategory(item);
+    var categoryUrl = Url.ActionCategory(item);
+    var areaUrl = Url.ActionArea(item);
+    var col = "col-md-7";
+    <div class="row blog blog-medium margin-bottom-40">
+        @if (item.Title.Type == ContentType.Video || item.Title.Type == ContentType.Photo)
+        {
+            var urls = string.IsNullOrWhiteSpace(item.Title.ImageSmallUrl) ? new string[0] : item.Title.ImageSmallUrl.Split(';');
+
+            switch (item.Title.Type)
+            {
+                case ContentType.Video:
+                    <a href="@articleUrl">
+                        <div class="col-sm-5">
+                            @Video(item.Title.ImageSmallUrl)
+                        </div>
+                    </a>break;
+                case ContentType.Photo:
+
+                    if (urls.Length <= 1)
+                    {
+                        if (!string.IsNullOrWhiteSpace(item.Title.ImageSmallUrl))
+                        {
+                            <a href="@articleUrl">
+                                <div class="col-sm-5">
+                                    @Image(item.Title.ImageSmallUrl)
+                                </div>
+                            </a>
+                        }
+                        else
+                        {
+                            col = "col-md-12";
+                        }
+                        break;
+                    }
+
+                    <a href="@articleUrl">
+                        <div class="col-sm-5">
+                            @Carusel(urls)
+                        </div>
+                    </a>break;
+            }
+        }
+        else
+        {
+            col = "col-md-12";
+        }
+        <div class="@col">
+            <a href="@articleUrl"><h2>@item.Title.Text</h2></a>
+            <ul class="list-unstyled list-inline post-info">
+                <li><a href="@areaUrl"><i class="fa fa-tags"></i> @item.Category.AreaName</a></li>
+                @if (!string.IsNullOrWhiteSpace(item.Category.CategoryValue))
+                {
+                    <li><a href="@categoryUrl"> @item.Category.CategoryName</a></li>
+                }
+                @if (!string.IsNullOrWhiteSpace(item.Category.SubCategoryValue))
+                {
+                    <li><a href="@subCategoryUrl"> @item.Category.SubCategoryName</a></li>
+                }
+                <li>
+                    <a href="@articleUrl#comments">
+                        <i class="fa fa-comments"></i><span>&nbsp;@item.SocialNetwork.CommentsCount&nbsp;</span>
+                        @{    var commentText = "Коментар";
+                            if (item.SocialNetwork.CommentsCount != 1)
+                            {
+                                commentText = commentText + "a";
+                            }
+                            <span>@commentText</span>
+                        }
+                    </a>
+                </li>
+            </ul>
+            <article><div class="text">@item.Review...</div></article>
+            <a class="read-more" href="@articleUrl">Прочети <i class="fa fa-chevron-circle-right"></i></a>
+        </div>
+    </div>
+    <hr class="margin-bottom-40">
+}
+@helper Carusel(string[] urls)
+{
+    <div class="carousel slide carousel-v1" id="myCarousel">
+        <div class="carousel-inner" role="listbox">
+            @for (int i = 0; i < urls.Length; i++)
+            {
+                var url = urls[i];
+                var active = i == 0 ? "active" : "";
+                <div class="item @active">
+                    <img alt="" src="@url">
+                    <div class="carousel-caption">
+                        <p>Facilisis odio, dapibus ac justo acilisis gestinas.</p>
+                    </div>
+                </div>
+}
+        </div>
+        <div class="carousel-arrow">
+            <a data-slide="prev" href="#myCarousel" class="left carousel-control">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a data-slide="next" href="#myCarousel" class="right carousel-control">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </div>
+}
+@helper Video(string url)
+{
+    <div class="">
+        <img class="img-responsive" alt="" src="@UrlExtention.Content(url)">
+        <img class="button-video-play" alt="" src="@UrlExtention.Content("~/assets/img/icons/video-play.png")">
+    </div>
+}
+@helper Image(string url)
+{
+    <img class="img-responsive" alt="" src="@UrlExtention.Content(url)">
+}
+@helper LeftContent(string url, string content)
+{
+    <a href="@url">
+        <div class="col-sm-5">
+            @Html.Raw(content)
+        </div>
+    </a>
+}

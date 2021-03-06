@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Условия и права за ползване";
+}
+<div class="container content-sm">
+    <div class="row-fluid privacy">
+        <h1>Условия и права за ползване на материали от <strong>misiazdrave.bg</strong></h1>
+        <div class="row">
+            <div class="col-md-2">
+                @if (!Request.IsLocalHost())
+                {
+                    <a href="http://www.dmca.com/Protection/Status.aspx?ID=33fd5979-436c-4a72-b57f-0d2877e67e3d" title="DMCA.com Protection Status" class="dmca-badge"> <img src="//images.dmca.com/Badges/_dmca_premi_badge_1.png?ID=33fd5979-436c-4a72-b57f-0d2877e67e3d" alt="DMCA.com Protection Status"></a>
+                }
+            </div>
+            <div class="col-md-10">
+                <p>Съдържанието на <strong>misiazdrave.bg</strong> е защитено чрез <strong><a href="http://www.dmca.com/Protection/Status.aspx?ID=33fd5979-436c-4a72-b57f-0d2877e67e3d">Digital Millennium Copyright Act (DMCA)</a></strong>. Това е политика, която защитава авторските права на съдържанието в сайта.</p>
+                <p>Цялото съдържанието на сайта вкючващо изображения, видео, текст и всички останали компоненти са лицензирани чрез <strong><a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a></strong>.</p>
+            </div>
+        </div>
+
+        <p>Можете да копирате, използвате, променяте и споделяте съдържанието на статии, като изрично трябва да споменете и посочите, че източника е <strong>misiazdrave.bg</strong> и да поставите линк към оригиналния адрес от сайта.</p>
+
+        <h4>Копирането на статии от <strong>misiazdrave.bg</strong> е позволено при две условия:</h4>
+        <ul>
+            <li>Трябва да бъда записан като автор <strong>misiazdrave.bg</strong> с линк към оригиналната страница в сайта <strong>misiazdrave.bg</strong> и това трябва да бъде в самото начало на статията.</li>
+            <li>Всички линкове от оригиналната статия, които сочат към вътрешни статии започващи с <strong>misiazdrave.bg</strong> трябва да бъдат запазени и не променени. Това гарантира че няма да се наруши целостта на статията,</li>
+        </ul>
+
+        <p>
+            За допълнителна информация, която не намирате в <strong>Attribution-NonCommercial-ShareAlike CC BY-NC-SA</strong> лиценза за този сайт.
+            <br />Можете директно да ми пишете чрез <a href="@Url.Action("", "Contact", new { area=""})">формата за контакти.</a>
+        </p>
+        <div class="margin-bottom-100"></div>
+        <div class="margin-bottom-100"></div>
+    </div>
+</div>

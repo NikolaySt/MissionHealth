@@ -1,0 +1,21 @@
+﻿@model MoreViewModel
+@if (Model != null)
+{
+    <div class="posts margin-bottom-40">
+        <div class="headline headline-md"><h2>@Model.Title</h2></div>
+        @{if (Model.Articles != null)
+            {
+                foreach (var item in @Model.Articles)
+                {
+                    var articleUrl = Url.ActionArticle(item);
+                    <dl class="dl-horizontal">
+                        <dt><a href="@articleUrl"><img src="@Url.Content(@item.Title.ImageThumbnailUrl)" alt="" /></a></dt>
+                        <dd>
+                            <p><a href="@Url.ActionArticle(item)">@item.Title.Text</a></p>
+                        </dd>
+                    </dl>
+                }
+            }
+        }
+    </div>
+}

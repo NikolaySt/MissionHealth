@@ -1,0 +1,85 @@
+﻿@using SocialNet.Backend.DataObjects
+@model List<Article>
+@if (Model.Count() == 1)
+{
+    <div class="row">
+        <div class="col-sm-12">
+            @articleItem(Model[0])
+        </div>
+    </div>
+}
+@if (Model.Count() == 2)
+{
+    <div class="row">
+        <div class="col-sm-6">
+            @articleItem(Model[0])
+        </div>
+        <div class="col-sm-6">
+            @articleItem(Model[1])
+        </div>
+    </div>
+}
+@if (Model.Count() == 3)
+{
+    <div class="row">
+        <div class="col-sm-6">
+            @articleItem(Model[0])
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    @articleItem(Model[1])
+                </div>
+                <div class="col-sm-6">
+                    @articleItem(Model[2])
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (Model.Count() == 6)
+{
+    <div class="row">
+        <div class="col-sm-6">
+            @articleItem(Model[0])
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-6">
+                    @articleItem(Model[1])
+                </div>
+                <div class="col-sm-6">
+                    @articleItem(Model[2])
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    @articleItem(Model[3])
+                </div>
+                <div class="col-sm-6">
+                    @articleItem(Model[4])
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@helper articleItem(Article item)
+{
+    var articleUrl = Url.ActionArticle(item);
+    <article class="fancybox img-hover-v1 thumbnails  thumbnail-kenburn">
+        <header>
+            <div class="caption">
+                <a href="@articleUrl" class="hover-effect">
+                    <h4>@item.Title.Text</h4>
+                </a>
+            </div>
+        </header>
+        <a href="@articleUrl" title="@item.Title.Text" class="thumbnail-img">
+            <div class="overflow-hidden">
+                <span>
+                    <img class="img-responsive" src="@Url.Content(@item.Title.ImageSmallUrl)" alt="">
+                </span>
+            </div>
+        </a>
+    </article>
+}

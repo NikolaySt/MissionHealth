@@ -1,0 +1,46 @@
+﻿@{
+    string area = ((string)ViewContext.RouteData.Values["main"])?.ToLower();
+    string category = ((string)ViewContext.RouteData.Values["category"])?.ToLower();
+    string subcategory = ((string)ViewContext.RouteData.Values["subcategory"])?.ToLower();
+
+    //Health/Nutrition/Recipes
+}
+@if (area == "nutrition" && string.IsNullOrWhiteSpace(category) && string.IsNullOrWhiteSpace(subcategory))
+{
+    <div class="headline headline-md"><h2>Хранене</h2></div>
+    return;
+}
+@if (area == "nutrition" && category == "recipes" && string.IsNullOrWhiteSpace(subcategory))
+    {
+    <div class="headline headline-md"><h2>Хранене <i class="fa fa-angle-right"></i>Рецепти</h2></div>
+    return;
+}
+@if (area == "nutrition" && category == "programs" && string.IsNullOrWhiteSpace(subcategory))
+{
+    <div class="headline headline-md"><h2>Хранене <i class="fa fa-angle-right"></i>Програми</h2></div>
+    return;
+}
+@if (area == "nutrition" && category == "articles" && string.IsNullOrWhiteSpace(subcategory))
+{
+    <div class="headline headline-md"><h2>Хранене <i class="fa fa-angle-right"></i>Статии</h2></div>
+}
+@if (area == "mypharmacy" && string.IsNullOrWhiteSpace(category) && string.IsNullOrWhiteSpace(subcategory))
+{
+    <div class="headline headline-md"><h2>Моята Аптека</h2></div>
+    return;
+}
+@if (area == "mypharmacy" && category == "supplements" && string.IsNullOrWhiteSpace(subcategory))
+{
+    <div class="headline headline-md"><h2>Моята аптека <i class="fa fa-angle-right"></i>Добавки</h2></div>
+    return;
+}
+@if (area == "mypharmacy" && category == "homecosmetics" && string.IsNullOrWhiteSpace(subcategory))
+{
+    <div class="headline headline-md"><h2>Моята аптека <i class="fa fa-angle-right"></i>Домашна козметика</h2></div>
+    return;
+}
+@if (area == "health")
+{
+    <div class="headline headline-md"><h2>Здраве</h2></div>
+    return;
+}

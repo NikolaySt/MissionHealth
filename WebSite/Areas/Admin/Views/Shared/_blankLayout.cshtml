@@ -1,0 +1,16 @@
+﻿@using System.Web.Optimization
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+<link href="~/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="~/assets/css/spinners.css" rel="stylesheet" />
+@RenderSection("styles", required: false)
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script src="~/assets/js/spinners.js"></script>
+
+@RenderBody()
+
+@RenderSection("scripts", required: false)
+

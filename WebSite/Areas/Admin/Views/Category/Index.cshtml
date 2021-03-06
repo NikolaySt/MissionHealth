@@ -1,0 +1,108 @@
+﻿@using SocialNet.Backend.DataObjects
+@model List<ArticleCategory>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var areas = ViewBag.Areas as List<Tuple<string, string>>;
+}
+<div class="row">
+    <div class="col-md-4">
+        <button class="create btn btn-primary" data-toggle="modal" data-target="#createForm">Създай нова</button>
+    </div>
+</div>
+<div class="row">    
+    @foreach (var item in areas)
+    {
+        <div class="col-md-4">
+            <div class="table-responsive">
+                <h2>@item.Item2</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Категория</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{  
+                            var categories = Model.Where(it => it.AreaValue == item.Item1).Select(it => it).ToList();
+
+                            foreach (var category in categories)
+                            {
+                                <tr data-id="@category.Id">
+                                    <td>@category.AreaName.@category.CategoryName.@category.SubCategoryName</td>
+                                    <td>
+                                        <button class="edit btn btn-sm btn-primary pull-left" data-toggle="modal" data-target="#editForm">Редактирай</button>
+                                        <button class="delete btn btn-sm btn-danger submit pull-left">Изтрий</button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+<div class="modal fade" id="createForm" tabindex="-1" role="dialog" aria-labelledby="Settings">
+    <div class="modal-dialog" role="document">
+        <div class="panel panel-default margin-bottom-40">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="panel-title">Създай категория</h3>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("_create", new ArticleCategory())
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editForm" tabindex="-1" role="dialog" aria-labelledby="Settings">
+    <div class="modal-dialog" role="document">
+        <div class="panel panel-default margin-bottom-40">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="panel-title">Редактирай категория</h3>
+            </div>
+            <div class="panel-body">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".delete").click(function () {
+                if (!confirm('Наистина ли желаете да се изтрие тази категорията?')) return;
+                var tr = $(this).closest("tr");
+                var id = tr.data('id');
+                $.ajax({
+                    url: "@Url.Action("Delete", "Category")/" + id,
+                    type: 'POST',
+                    success: function (response, status, result) {
+                        tr.remove();
+                    },
+
+                });
+            });
+            $('#editForm').on('show.bs.modal', function (event) {
+                var modal = $(this);
+                var container = modal.find(".panel-body");
+                container.html(spinnerCircle());
+                var button = $(event.relatedTarget);
+                var id = button.closest("tr").data('id');
+                $.ajax({
+                    url: "@Url.Action("Edit", "Category")/" + id,
+                    type: 'GET',
+                    success: function (response, status, result) {
+                        container.html(response);
+                    },
+                    error: function (response, status, result) {
+                        container.html(response);
+                    }
+                });
+            });
+        });
+
+    </script>
+}

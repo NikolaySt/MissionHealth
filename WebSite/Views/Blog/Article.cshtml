@@ -1,0 +1,226 @@
+﻿@using SocialNet.Backend.DataObjects
+@model Article
+@{
+    ViewBag.FacebookTrack = "fbq('track', 'ViewContent');";
+    ViewBag.Descriptions = Model.Review;
+    ViewBag.Keywords = string.Join(",", Model.Keywords ?? new List<string>());
+
+    var more = ViewBag.More as MoreViewModel;
+
+    var imgSocialNetworkUrl = UrlExtention.ContentSocialNetwork(Model.Title.ImageSmallUrl);
+
+    var title = Model.Title.Text;
+    var url = Request.Url.AbsoluteUri;
+    var description = Model.Review;
+
+    ViewBag.Title = title;
+
+    var pintrest = "https://www.pinterest.com/pin/create/button/?" +
+        "url=" + Url.Encode(url) +
+        "&media=" + Url.Encode(imgSocialNetworkUrl) +
+        "&description=" + Url.Encode(description);
+
+    var facebook = "https://www.facebook.com/dialog/feed?" +
+        "app_id=1585880441722572" +
+        "&display=popup" +
+        "&caption=" + Url.Encode(title) +
+        "&link=" + Url.Encode(url) +
+        "&picture=" + Url.Encode(imgSocialNetworkUrl);
+
+    var twitter = "http://twitter.com/share?" +
+        "text=" + Url.Encode(title) +
+        "&url=" + Url.Encode(url);
+
+    var subCategoryUrl = Url.ActionSubCategory(Model);
+    var categoryUrl = Url.ActionCategory(Model);
+    var areaUrl = Url.ActionArea(Model);
+
+}
+@section social{
+    <meta property="fb:app_id" content="1585880441722572">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@url" />
+    <meta property="og:title" content="@title" />
+    <meta property="og:site_name" content="Мисия Здраве">
+    <meta property="og:description" content="@description" />
+    <meta property="og:image" content="@imgSocialNetworkUrl" />
+    <meta name="twitter:card" content="photo">
+    <meta name="twitter:site" content="@("@misiazdrave")>" />
+    <meta name="twitter:url" content="@url">
+    <meta name="twitter:title" content="@title">
+    <meta name="twitter:description" content="@description">
+    <meta name="twitter:image" content="@imgSocialNetworkUrl">
+}
+@section scripts{
+    <script type="text/javascript">
+        function shared(url) {
+            var left = (screen.width / 2) - (700 / 2);
+            var top = (screen.height / 2) - (680 / 2);
+            window.open(url, 'newwindow', 'width=700, height=680 top=' + top + ', left=' + left);
+            return false;
+        }
+        var disqus_config = function () {
+            this.page.identifier = "@Model.Id";
+            this.callbacks.onNewComment = [function (comment) {
+                @{
+                    @:var token = $('input[name="__RequestVerificationToken"]').val();
+                                }
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("comment", "home", new { area = "" })?id=@Model.Id",
+                    data: { "__RequestVerificationToken": token },
+                    cache: false
+                });
+            }];
+        };
+    </script>
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/bg_BG/sdk.js#xfbml=1&version=v2.7&appId=1585880441722572";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    @if (Model.Title.Type == ContentType.Video)
+    {
+        <script src="@UrlExtention.Content("~/assets/plugins/jwplayer/jwplayer.js")"></script>
+        <script>jwplayer.key = "UBWo+Sc9PQv9KqxO1jdjbyEEgSRS2A0BXy3aoQ==";</script>
+        <script>
+            var playerInstance = jwplayer("video-container");
+            playerInstance.setup({
+                type: "mp4",
+                file: "@UrlExtention.Content(Model.Title.VideoUrl)",
+                image: "@UrlExtention.Content(Model.Title.ImageUrl)",
+                width: "100%",
+                aspectratio: "16:9",
+                skin: { name: "vapor" }
+            });
+        </script>
+    }
+}
+<div class="container content-sm">
+    <div class="row">
+        <div class="col-md-12">
+            <article class="blog blog-medium margin-bottom-30">
+                @switch (Model.Title.Type)
+                {
+                    case ContentType.Video:
+                        if (!string.IsNullOrWhiteSpace(Model.Title.VideoUrl))
+                        {
+                            @Video(Model.Title.VideoUrl, Model.Title.ImageUrl);
+                        }
+                        break;
+                    case ContentType.Photo:
+                        {
+                            if (!string.IsNullOrWhiteSpace(Model.Title.ImageUrl))
+                            {
+                                <img class="img-responsive full-width" src="@UrlExtention.Content(Model.Title.ImageUrl)" alt="" />
+                            }
+                            break;
+                        }
+                }
+                <a href="@Request.Url"><h1 class="padding-top-20">@title</h1></a>
+                <ul class="list-unstyled list-inline post-info">
+                    <li><a href="@areaUrl"><i class="fa fa-tags"></i> @Model.Category.AreaName</a></li>
+                    @if (!string.IsNullOrWhiteSpace(Model.Category.CategoryValue))
+                    {
+                        <li><a href="@categoryUrl"> @Model.Category.CategoryName</a></li>}
+                    @if (!string.IsNullOrWhiteSpace(Model.Category.SubCategoryValue))
+                    {
+                        <li><a href="@subCategoryUrl"> @Model.Category.SubCategoryName</a></li>}
+                    <li>
+                        <a href="#comments">
+                            <i class="fa fa-comments"></i><span>&nbsp;@Model.SocialNetwork.CommentsCount&nbsp;</span>
+                            @{var commentText = "Коментар";
+                                if (Model.SocialNetwork.CommentsCount != 1)
+                                {
+                                    commentText = commentText + "a";
+                                }
+                                <span>@commentText</span>
+                            }
+                        </a>
+                    </li>
+                    <li><i class="fa fa-calendar"></i>&nbsp;Побликувана @HtmlHelperExtensions.TimeAgo(Model.Created)</li>
+                </ul>
+                <div class="text">
+                    @Html.Raw(@Model.Content.Html.Replace("~", UrlExtention.Content("~")))
+                </div>
+                <div class="headline">
+                    <h2>Споделите статията с вашите приятели.</h2>
+                </div>
+                @socialNetworkLarge(twitter, facebook, pintrest)
+                <br/>
+                <br />
+                <div class="headline">
+                    <h2>За автора</h2>
+                </div>
+                <div class="blog-author margin-bottom-30">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <img class="img-responsive img-bordered full-width" src="~/assets/img/me-small.jpg" alt="">
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="blog-author-desc">
+                                <div class="overflow-h">
+                                    <h4>Атанаска Дончева</h4>
+                                    <ul class="social-icons social-icons-color pull-right">
+                                        <li><a data-original-title="Facebook" class="social_facebook select" href="https://facebook.com/misiazdrave"></a></li>
+                                    </ul>
+                                </div>
+                                <p>Здравейте, аз съм Атанаска и този сайт е плод на непрестанния ми интерес към връзката между храната и здравето. Искам да споделя знанията, опита и  стремежа ми към здравословен начин на живот и да вдъхновя повече хора да променят ежедневието си към по-добро. </p>
+                                <a class="read-more" href="@Url.Action("", "AboutMe")#me">Научи повече за мен <i class="fa fa-chevron-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>                   
+                </div>
+            </article>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="margin-bottom-20" id="comments">Вашият коментар</h2>
+            @*<div id="disqus_thread"></div>
+            <noscript>Моля включете JavaScript за да виждате <a href="https://disqus.com/?ref_noscript" rel="nofollow">коментарите с помощта на Disqus.</a></noscript>*@            
+            <div class="fb-comments" data-href="@url" data-width="100%" data-mobile="true" data-numposts="10"></div>
+        </div>
+    </div>
+</div>
+
+@helper socialNetworkLarge(string twitter, string facebook, string pintrest)
+{
+    <div class="row social-container hidden-xs">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+            <a class="btn btn-social btn-adn btn-facebook" onclick="shared('@facebook')"><span class="fa fa-facebook"> </span>Facebook</a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+            <a class="btn btn-social btn-adn btn-twitter" onclick="shared('@twitter')"><span class="fa fa-twitter"></span>Twitter</a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+            <a class="btn btn-social btn-adn btn-pinterest" onclick="shared('@pintrest')"><span class="fa fa-pinterest"></span>Pinterest</a>
+        </div>
+    </div>
+    <ul class="social-icons social-icons-color visible-xs">
+        <li><a data-original-title="Facebook" class="social_facebook select" onclick="shared('@facebook')"></a></li>
+        <li><a data-original-title="Twitter" class="social_twitter select" onclick="shared('@twitter')"></a></li>
+        <li><a data-original-title="Pintrest" class="social_pintrest select" onclick="shared('@pintrest')"></a></li>
+    </ul>
+}
+@helper socialNetworkSmall(string twitter, string facebook, string pintrest)
+{
+    <ul class="social-icons social-icons-color">
+        <li><a data-original-title="Facebook" class="social_facebook select" onclick="shared('@facebook')"></a></li>
+        <li><a data-original-title="Twitter" class="social_twitter select" onclick="shared('@twitter')"></a></li>
+        <li><a data-original-title="Pintrest" class="social_pintrest select" onclick="shared('@pintrest')"></a></li>
+    </ul>
+}
+
+@helper Video(string source, string thumbnail)
+{
+    <div id="video-container">
+        <img class="img-responsive full-width" src="@UrlExtention.Content(thumbnail)" alt="" />
+    </div>
+}
+

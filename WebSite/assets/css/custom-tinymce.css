@@ -1,0 +1,9 @@
+﻿@charset "utf-8";
+body 
+{
+    font-size:12px;
+}
+div
+{
+    border: 1px solid red;
+}

@@ -1,0 +1,187 @@
+﻿@using SocialNet.WebSite.Areas.Admin.Models
+@model ArticleViewModel
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#article-category" aria-controls="article-category" role="tab" data-toggle="tab">Категория</a></li>
+    <li role="presentation"><a href="#article-review" aria-controls="article-review" role="tab" data-toggle="tab">Представяне</a></li>   
+    <li role="presentation"><a href="#article-keywords" aria-controls="article-keywords" role="tab" data-toggle="tab">Ключови думи</a></li>       
+    <li role="presentation"><a href="#article-title" aria-controls="article-title" role="tab" data-toggle="tab">Заглавие</a></li>
+</ul>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade active in" id="article-category">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group margin-bottom-5">
+                            <label class="control-label col-md-4">Област</label>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(m => m.AreaValue, Model.Areas, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.AreaValue)
+                            </div>
+                        </div>
+                        <div class="form-group  margin-bottom-5">
+                            <label class="control-label col-md-4" for="appendbutton">Категория</label>
+                            <div class="col-md-8">
+                                <div id="categoryOptions">
+                                    @if (!string.IsNullOrWhiteSpace(Model.CategoryValue))
+                                    {
+                                        @Html.DropDownListFor(m => m.CategoryValue, Model.Categories, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.CategoryValue)
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <div class="checkbox">
+                                        @Html.CheckBoxFor(m => m.Interesting)
+                                        <label for="Interesting">Сложи в категория интересни</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <div class="checkbox">
+                                        @Html.CheckBoxFor(m => m.Top)
+                                        <label for="Top">Сложи в категория водещи</label>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="article-review">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Review)
+                    @Html.TextAreaFor(m => m.Review, new { @rows = 5 ,@class="form-control"})
+                    @Html.ValidationMessageFor(m => m.Review)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="article-keywords">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Keywords)
+                    @Html.TextAreaFor(m => m.Keywords, new { @rows = 5, @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Keywords)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="article-title">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="form-group margin-bottom-5">
+                    <label class="col-md-4 control-label">Заглавие</label>
+                    <div class="col-md-8">
+                        @Html.EditorFor(m => m.Title, new { htmlAttributes = new { @class = "form-control", @placeholder = "Default Text Field" } })
+                        @Html.ValidationMessageFor(m => m.Title)
+                    </div>
+                </div>
+
+                <div class="form-group margin-bottom-5">
+                    <label class="col-md-4 control-label ">Тип на залавието</label>
+                    <div class="col-md-8">
+                        @Html.EnumDropDownListFor(m => m.TitleType, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group  margin-bottom-5">
+                    <label class="control-label col-md-4">Водеща Голяма снимка</label>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    @Html.EditorFor(m => m.ImageUrl, new { htmlAttributes = new { @class = "form-control", @placeholder = "http://example.com/image.jpg" } })
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="modal" data-callback="ImageUrl" data-target="#formGallery">
+                                            <i class="fa-fw fa fa-picture-o"></i> избор
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group  margin-bottom-5">
+                    <label class="control-label col-md-4">Видео линк</label>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-sm-12">                                
+                                <div class="input-group">
+                                    @Html.EditorFor(m => m.VideoUrl, new { htmlAttributes = new { @class = "form-control", @placeholder = "http://example.com/video.mp4" } })
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="modal" data-callback="videoUrl" data-target="#formGallery">
+                                            <i class="fa-fw fa fa-picture-o"></i> избор
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group  margin-bottom-5">
+                    <label class="control-label col-md-4">Водеща Малка снимка</label>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    @Html.EditorFor(m => m.ImageSmallUrl, new { htmlAttributes = new { @class = "form-control", @placeholder = "http://example.com/image.jpg" } })
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="modal" data-callback="ImageSmallUrl" data-target="#formGallery">
+                                            <i class="fa-fw fa fa-picture-o"></i> избор
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group  margin-bottom-5">
+                    <label class="control-label col-md-4">Малка снимка тип "Thumbnail"</label>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    @Html.EditorFor(m => m.ImageThumbnailUrl, new { htmlAttributes = new { @class = "form-control", @placeholder = "http://example.com/image.jpg" } })
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="button" data-toggle="modal" data-callback="ImageThumbnailUrl" data-target="#formGallery">
+                                            <i class="fa-fw fa fa-picture-o"></i> избор
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

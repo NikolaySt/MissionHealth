@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{94F6B066-6654-48F6-B33C-AE5D726323F1}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BackendTest</RootNamespace>
+    <AssemblyName>BackendTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Backend\Catalogs\Catalogs.csproj">
+      <Project>{cc7c860d-713f-4783-909f-dd9e893da597}</Project>
+      <Name>Catalogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\Configuration\Configuration.csproj">
+      <Project>{0630019f-e1dc-4ac6-b3f7-cf05aa886784}</Project>
+      <Name>Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\DataFilters\DataFilters.csproj">
+      <Project>{e8555c5d-41d1-4b1c-ab63-b7aa4c01bca2}</Project>
+      <Name>DataFilters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\DataObjects\DataObjects.csproj">
+      <Project>{5166cafc-f622-401c-90cc-707dcb0815ac}</Project>
+      <Name>DataObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\Exceptions\Exceptions.csproj">
+      <Project>{4c6b92f3-3f91-40a9-b050-7c2a0a7977bb}</Project>
+      <Name>Exceptions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\Helpers\Helpers.csproj">
+      <Project>{1bac3375-b4b4-4282-a173-1d1cdf114a79}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\Managers\Managers.csproj">
+      <Project>{724100df-e2ab-438b-8966-50023d393df6}</Project>
+      <Name>Managers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\Providers\Crypto\Crypto.csproj">
+      <Project>{8e27ad81-4a0f-43fd-a45a-85654730fc9e}</Project>
+      <Name>Crypto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\Providers\Database\Database.csproj">
+      <Project>{b9488347-04da-4ca2-a862-6d9a4a761548}</Project>
+      <Name>Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\Providers\Logging\Logging.csproj">
+      <Project>{9aa5fbfc-69ba-4ba3-82ad-49f82cd2eb11}</Project>
+      <Name>Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\Providers\Mail\Mail.csproj">
+      <Project>{c01f30ba-2cc9-4356-9042-e435529d3d27}</Project>
+      <Name>Mail</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\Providers\Passwords\Passwords.csproj">
+      <Project>{d19cdf9d-992f-4ebc-96e9-3f0be4721fee}</Project>
+      <Name>Passwords</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\Providers\Tokens\Tokens.csproj">
+      <Project>{2ceff99d-1113-4e0e-a2eb-687b045e289e}</Project>
+      <Name>Tokens</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Backend\Security\Security.csproj">
+      <Project>{965d14f2-ab33-4b0a-a6f2-266b3e596f9c}</Project>
+      <Name>Security</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

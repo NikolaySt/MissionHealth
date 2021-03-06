@@ -1,0 +1,41 @@
+﻿@model string[]
+<div class="row">
+    <div class="col-sm-3">
+        @foreach (var item in ViewBag.Folders as List<string>)
+        {
+            var activeStyle = "";
+            var folder = "<i class='fa fa-folder'></i>";
+            <a class="folder" href="#" data-folder="@item" style="margin-top:10px; display:block; text-transform:capitalize; @activeStyle">@Html.Raw(folder) @item</a>
+        }
+        <div class="superbox-float"></div>
+    </div>
+    <div class="superbox col-sm-9">
+        <div id="folder-container">
+            @Html.Partial("_images", Model)
+        </div>
+    </div>
+    <div class="superbox-show" style="height:300px; display: none"></div>
+</div>
+
+<link href="~/assets/plugins/superbox/superbox.css" rel="stylesheet" />
+<script src="~/assets/plugins/superbox/superbox.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.superbox').SuperBox();
+        $(".folder").click(function () {
+            var folder = $(this).attr("data-folder");
+            var container = $("#folder-container");
+            container.html(spinnerCircle());
+            $.ajax({
+                type: 'GET',
+                url: "@Url.Action("images")?folder=" + folder,
+                success: function (result, message, ctx) {
+                    container.html(result);
+                },
+                error: function (result, message, ctx) {
+                    container.html(result.responseText);
+                }
+            });
+        });
+    })
+</script>

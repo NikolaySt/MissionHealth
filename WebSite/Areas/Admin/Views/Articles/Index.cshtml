@@ -1,0 +1,78 @@
+﻿@using SocialNet.Backend.DataObjects
+@model List<Article>
+<div id="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                <i class="fa-fw fa fa-archive"></i> Статии
+                <a href="@Url.Action("Create", "Articles")" class="btn btn-primary"><i class="fa fa-plus"></i> Нова</a>
+            </h1>
+        </div>
+    </div>
+    <div class="row"><div class="col-lg-12"></div></div>
+    <div class="row">
+        <div class="col-lg-12 container-articles">
+            @Html.Partial("_articles", Model)
+        </div>
+    </div>
+    <div class="loading" data-page="1" style="margin-bottom:100px">
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".container-articles").on("click", ".delete", function () {
+                if (!confirm('Наистина ли желаете да изтриете тази статия?')) return;
+                var article = $(this).closest("article");
+                var id = article.data('id');
+                $.ajax({
+                    url: "@Url.Action("Delete")/" + id,
+                    type: 'POST',
+                    success: function (response, status, result) {
+                        article.remove();
+                    },
+                });
+            });
+            $(".container-articles").on("click", ".published", function () {
+                var button = $(this);
+                var article = button.closest("article");
+                var id = article.data('id');
+                $.ajax({
+                    url: "@Url.Action("Published")/" + id + "?published=true",
+                    type: 'POST',
+                    success: function (response, status, result) {
+                        button.closest(".status-operations").find(".btn.status").each(function () {
+                            if ($(this).hasClass("hidden")) {
+                                $(this).removeClass("hidden");
+                            } else {
+                                $(this).addClass("hidden");
+                            }
+                        });
+                    },
+                });
+            });
+            $(".container-articles").on("click", ".unpublished", function () {
+                var button = $(this);
+                var article = button.closest("article");
+                var id = article.data('id');
+                $.ajax({
+                    url: "@Url.Action("Published")/" + id + "?published=false",
+                    type: 'POST',
+                    success: function (response, status, result) {
+                        button.closest(".status-operations").find(".btn.status").each(function () {
+                            if ($(this).hasClass("hidden")) {
+                                $(this).removeClass("hidden");
+                            } else {
+                                $(this).addClass("hidden");
+                            }
+                        });
+                    },
+                });
+            });
+            $(window).scroll(function () {
+                $(this).loadingArticles("@Url.Action("Index")?areavalue=@ViewBag.AreaValue", $(".container-articles"))
+            });
+        });
+    </script>
+}

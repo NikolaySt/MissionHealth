@@ -1,0 +1,90 @@
+﻿@using SocialNet.Backend.DataObjects
+@model List<Message>
+<div id="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                <i class="fa-fw fa fa-envelope"></i> Съобщения
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 container-articles">
+            @Html.Partial("_messages", Model)
+        </div>
+        <div class="loading">
+        </div>
+        <div class="text-center">
+            <p><a class="btn ms-btn-round loadMore" data-page="1">Зареди още<i class="fa fa-angle-double-right margin-left-5"></i></a></p>
+        </div>
+    </div>
+</div>
+
+<div id="formMessage" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Съобщение</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".delete").click(function () {
+                if (!confirm('Наистина ли желаете да изтриете тава съобщение?')) return;
+                var section = $(this).closest("section");
+                var container = section.closest(".message");
+                var id = section.data('id');
+                $.ajax({
+                    url: "@Url.Action("Delete")/" + id,
+                    type: 'POST',
+                    success: function (response, status, result) {
+                        container.remove();
+                    },
+                });
+            });
+
+            $(".read").click(function () {
+                var button = $(this);
+                var message = button.closest("section");
+                var id = message.data('id');
+                $.ajax({
+                    url: "@Url.Action("read")/" + id,
+                    type: 'GET',
+                    success: function (response, status, result) {
+                        $('#formMessage').find(".modal-body").html(response);
+                        $('#formMessage').modal('show');
+                    },
+                });
+            });
+
+            $(".loadMore").click(function () {
+                var container = $(".container-articles");
+                var loader = $(this);
+                var page = $(this).data("page");
+                $(".loading").html(spinnerCircle());
+                $.ajax({
+                    url: "@Url.Action("Index")?page=" + page,
+                }).done(function (html) {
+                    page++;
+                    loader.data("page", page);
+                    container.append(html);
+                    $(".loading").html("");
+                }).fail(function (jqXHR, textStatus) {
+                    $(".loading").html("");
+                })
+            });
+        });
+
+    </script>
+}

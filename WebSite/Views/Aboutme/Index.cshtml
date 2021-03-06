@@ -1,0 +1,85 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="about-us">
+    <img href="~/assets/img/fashion_bg1.jpg" class="cover-me hidden" width="1920" height="1080" />
+    <div class="container hidden" style="position:absolute">
+        <img src="~/assets/img/misia-zdrave-logo-small.png" class="logo" />
+        <p>Нашето най-голямо съкровище е нашето здраве. И само от теб зависи да постигнеш баланс на тялото.</p>
+        <p><a href="#me" class="scroll"><i class="icon-custom icon-lg rounded-x icon-color-u icon-line fa fa-angle-down"></i></a></p>
+    </div>
+</div>
+
+<div class="quote-v1 parallaxBg" id="me">
+    <div class="container">
+        <p>Здравейте, аз съм Атанаска Дончева и този сайт е плод на непрестанния ми интерес към връзката между храната и здравето. Искам да споделя знанията, опита и  стремежа ми към здравословен начин на живот и да вдъхновя повече хора да променят ежедневието си към по-добро. </p><p>Вярвам, че за да се случи това, човек трябва да е най-вече информиран и да има знанията, затова се надявам сайта да помогне на тези от вас, които търсят пътя към здравето, и да внесе повече яснота сред хаоса от модерните „здравословни“ тенденции. </p><p>Вярвам, че идва времето на една нова медицина, в която има място за всички методи, като в центъра седи пациентът. </p>
+    </div>
+</div>
+<div class="container content-sm">
+    <div class="row about-us-info">
+
+        <div class="col-sm-5 shadow-wrapper md-margin-bottom-40">
+            <div class="box-shadow shadow-effect-2">
+                <img class="img-responsive img-bordered full-width" src="~/assets/img/me-large.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="col-sm-7 info">
+            <div class="overflow-h">
+                <div class="pull-left">
+                    <h2>Атанаска</h2>
+                    <span>Фармацевт, основател на Мисия Здраве</span>
+                </div>
+                <ul class="social-icons social-icons-color pull-right">
+                    <li><a data-original-title="Facebook" class="social_facebook select" href="https://facebook.com/misiazdrave"></a></li>
+                </ul>
+            </div>
+            <p>Атанаска е завършила фармация в Медицинския университет в Пловдив и следва магистратура Nutrition and Health в Wageningen University в Холандия.</p>
+            <p>Въпреки образованието си, интересите ѝ са насочени към здравословния начини на живот и превенцията на заболяванията, като вярва в силата на качествената храна и живота без лекарства.</p>
+        </div>
+
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript" src="~/assets/plugins/jquery.parallax.js"></script>
+    <script type="text/javascript" async defer>
+        jQuery(document).ready(function () {
+            jQuery.fn.positionMe = function () {
+                var oW = $(window).width();
+                var iH = this.outerHeight();
+                var iW = this.outerWidth();
+                this.css("width", oW);
+                this.css("height", iH * (oW / iW));
+                return this;
+            };
+            jQuery.fn.positionBook = function () {
+                var cover = $(".cover-me");
+                var w = cover.width();
+                var h = cover.height();
+                var top = cover.position().top;
+                this.css("width", w * 0.7);
+                this.css("top", top + h / 2 - this.height() / 2);
+                this.css("left", w / 2 - this.width() / 2);
+                return this;
+            };
+            function initCovers() {
+                var image = $(".cover-me");
+                var theurl = image.attr("href");
+                image[0].onload = function () {
+                    $(this).positionMe();
+                    $(this).removeClass("hidden");
+                    $(".about-us .container").removeClass("hidden");
+                    $(".about-us .container").positionBook();
+                };
+                image[0].src = image.attr("href")
+            };
+            $(window).resize(function () {
+                $(".cover-me").positionMe();
+                $(".about-us .container").positionBook();
+            });
+            initCovers();
+            App.initParallaxBg();
+        });
+    </script>
+}
+

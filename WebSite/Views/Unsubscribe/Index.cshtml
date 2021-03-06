@@ -1,0 +1,65 @@
+﻿@using SocialNet.Backend.DataObjects;
+@model  User
+<div class="container content-sm">
+    <div class="row margin-bottom-30">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 mb-margin-bottom-30">
+            @if ((ViewBag.Success == null || !ViewBag.Success) && Model != null)
+            {
+                <div class="headline"><h2>Отписване от списъка с известия.</h2></div>
+                <p>Много съжаляваме, че се отписвате.</p><br />
+            }
+            @if (ViewBag.Success != null && ViewBag.Success)
+            {
+                <label class="text-success"><i class="fa fa-check"></i> @ViewBag.Message</label>
+                <br />
+                <a class="btn-u btn-bordered" href="~/">Начало</a>
+            }
+            @if (ViewBag.Success != null && !ViewBag.Success)
+            {
+                <label class="text-danger"><i class="fa fa-close"></i> @ViewBag.Message</label>
+                <br />
+                <a class="btn-u btn-bordered" href="~/">Начало</a>
+            }
+            @if (Model == null)
+            {
+                <label class="text-danger"><i class="fa fa-close"></i> Несъществуващ потребител.</label>
+                <br />
+                <a class="btn-u btn-bordered" href="~/">Начало</a>
+            }
+            @if ((ViewBag.Success == null || !ViewBag.Success) && Model != null)
+            {
+                using (@Html.BeginForm("Index", "Unsubscribe", FormMethod.Post, new { @class = "sky-form contact-style" }))
+                {
+                    <fieldset class="no-padding">
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.Id)
+                        <div class="row sky-space-20">
+                            <div class="col-md-11 col-md-offset-0">
+                                <label>Здравейте @Model.FirstName</label>
+                                <br />
+                                <label>Вашият Email: @Model.Email</label>
+                            </div>
+                        </div>
+                        <div class="row sky-space-20">
+                            <div class="col-md-11 col-md-offset-0">
+                                <div class="center-block">
+                                    <p><button type="submit" class="btn-u">Отпиши ме</button></p>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                }
+            }
+        </div><!--/col-md-9-->
+        <div class="col-md-3"></div>
+    </div><!--/row-->
+</div><!--/container-->
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+@section styles{
+    @Styles.Render("~/content/css/sky-forms")
+}
+
+

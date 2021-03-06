@@ -1,0 +1,115 @@
+﻿@using SocialNet.Backend.DataObjects
+@model List<Article>
+@if (Model == null || !Model.Any())
+{
+    return;
+}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        var articleUrl = Url.ActionArticle(item);
+        <div class="col-md-12">
+            <article data-id="@item.Id">
+                <div class="col-sm-2">
+                    @if (item.Title.Type == ContentType.Video || item.Title.Type == ContentType.Photo)
+                    {
+                        var urls = item.Title.ImageSmallUrl == null ? new string[0] : item.Title.ImageSmallUrl.Split(';');
+                        switch (item.Title.Type)
+                        {
+                            case ContentType.Video: @Video(item.Title.ImageSmallUrl); break;
+                        case ContentType.Photo:
+
+                            if (urls.Length <= 1)
+                            {
+                                if (!string.IsNullOrWhiteSpace(item.Title.ImageSmallUrl))
+                                {
+                    @Image(item.Title.ImageSmallUrl);
+                                }
+                            }
+                            else
+                            {
+                    @Carusel(urls);
+                            }
+                            break;
+                    }
+                }
+                </div>
+                <div class="col-sm-10 padding-left-0">
+                    <a href="@articleUrl" target="_blank"><h4 class="margin-top-0"> @item.Title.Text </h4></a>
+                    <ul class="list-inline padding-10">
+                        <li>
+                            <span><i class="fa fa-calendar"></i> @item.Created.ToString() </span>
+                        </li>
+                        <li> <a href="@Url.Action("Index", "Articles", new { areaValue = item.Category.AreaValue })"><i class="fa fa-tags"></i> @item.Category.AreaName</a></li>
+                        <li> @item.Category.CategoryName</li>
+                        <li> @item.Category.SubCategoryName</li>
+                        <li>
+                            <a href="@articleUrl#comments" target="_blank">
+                                <i class="fa fa-comments"></i>
+                                <span>@item.SocialNetwork.CommentsCount</span> @if (item.SocialNetwork.CommentsCount == 1)
+    {
+                            @:Коментар
+                                                    }
+    else
+    {
+                            @:Коментарa
+                                                    }
+                            </a>
+
+
+
+                        </li>
+
+                    </ul>
+                    <div class="status-operations">
+                        <a class="btn btn-warning" href="@Url.Action("Edit", "Articles", new { id = item.Id})"> Редактирай </a>
+                        @if (!item.Published)
+                        {
+                        <a class="btn btn-success status published"> Публикувай </a>
+                        <a class="btn btn-default status unpublished hidden"> Свали </a>
+                        }
+                        else
+                        {
+                        <a class="btn btn-success status published hidden"> Публикувай </a>
+                        <a class="btn btn-default status unpublished"> Свали </a>
+                        }
+                        <a class="btn btn-danger delete pull-right"> Изтрий </a>
+
+                    </div>
+
+                </div>
+            </article>
+            <div class="clearfix"></div>
+            <div style="margin-top: 20px"></div>
+            <hr />
+        </div>
+    }
+</div>
+@helper Carusel(string[] urls)
+{
+    <div class="carousel slide" id="post-carousel" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+            @for (int i = 0; i < urls.Length; i++)
+            {
+                var url = urls[i];
+                var active = i == 0 ? "active" : "";
+                <div class="item @active">
+                    <img alt="" src="@url">
+                </div>
+}
+        </div>
+    </div>
+}
+
+@helper Video(string thumbnail)
+{
+    <div class="">
+        <img class="img-responsive" alt="" src="@UrlExtention.Content(thumbnail)">
+        <img class="button-video-play" alt="" src="@UrlExtention.Content("~/assets/img/icons/video-play.png")">
+    </div>
+}
+
+@helper Image(string url)
+{
+    <img class="img-responsive" alt="" src="@Url.Content(url)">
+}

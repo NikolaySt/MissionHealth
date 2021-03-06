@@ -1,0 +1,24 @@
+﻿@using SocialNet.Backend.DataObjects
+@model List<Article>
+<div class="posts">
+    @foreach (var item in Model)
+    {
+        var articleUrl = Url.ActionArticle(item);
+
+        <dl class="dl-horizontal">
+            @if (!string.IsNullOrWhiteSpace(item.Title.ImageThumbnailUrl))
+            {
+                <dt><a href="@articleUrl"><img src="@Url.Content(item.Title.ImageThumbnailUrl)" alt="" /></a></dt>
+                <dd>
+                    <p><a href="@articleUrl" class="display-b">@item.Title.Text</a></p>
+                </dd>
+}
+            else
+            {
+                <dd class="no-margin">
+                    <p><a href="@articleUrl" class="display-b">@item.Title.Text</a></p>
+                </dd>
+            }            
+        </dl>
+    }
+</div>

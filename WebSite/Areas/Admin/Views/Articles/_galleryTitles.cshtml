@@ -1,0 +1,11 @@
+﻿@model string[]
+@Html.Partial("_galleryContainer", Model)
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".superbox").on("click", "#imgInfoBox .select", function () {
+            var file = $(this).closest("#imgInfoBox").attr("src");
+            $("#@ViewBag.Callback").val(file);
+            $(this).closest(".modal").modal('hide')
+        });
+    })
+</script>

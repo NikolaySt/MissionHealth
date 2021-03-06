@@ -1,0 +1,63 @@
+﻿@{
+    string area = ((string)ViewContext.RouteData.Values["main"])?.ToLower();
+    string category = ((string)ViewContext.RouteData.Values["category"])?.ToLower();
+    string subcategory = ((string)ViewContext.RouteData.Values["subcategory"])?.ToLower();
+
+    //Health/Nutrition/Recipes
+}
+@if (area == "nutrition" && string.IsNullOrWhiteSpace(category) && string.IsNullOrWhiteSpace(subcategory))
+{
+    return;
+}
+@if (area == "nutrition" && category == "recipes" && string.IsNullOrWhiteSpace(subcategory))
+{
+    var text = @"<div class='cover-text-recipe'><span>Истински здравословни и вкусни рецепти за всички.</span><br/>
+                <span class='hidden-info-xs'>Тук ще намерите полезни алтернативи на традиционните ястия.</span><br/>
+                <span class='hidden-info-md'>Всички рецепти са без глутен.</span></div>";
+    @cover("cover-nutrition-recipes.jpg", text, "right")
+    return;
+}
+@if (area == "nutrition" && category == "programs" && string.IsNullOrWhiteSpace(subcategory))
+{
+    @cover("cover-nutrition-diets.jpg")
+    return;
+}
+@if (area == "nutrition" && category == "articles" && string.IsNullOrWhiteSpace(subcategory))
+{
+    @cover("cover-nutrition-articles.jpg")
+    return;
+}
+@if (area == "mypharmacy" && string.IsNullOrWhiteSpace(category) && string.IsNullOrWhiteSpace(subcategory))
+{
+
+    return;
+}
+@if (area == "mypharmacy" && category == "supplements" && string.IsNullOrWhiteSpace(subcategory))
+{
+    @cover("cover-my-pharmacy.jpg")
+    return;
+}
+@if (area == "mypharmacy" && category == "homecosmetics" && string.IsNullOrWhiteSpace(subcategory))
+{
+    var text = @"<div class='cover-text-home-cosmetic'><span>Знаете ли, че всеки ден нанасяме над 500 химикала върху кожата си.</span><br/>
+                <span class='hidden-info-md'>Тук можете да откриете информация и рецепти за натурална козметика с полезни за кожата съставки</span></div>";
+    @cover("cover-home-cosmetic.jpg", text, "left");
+    return;
+}
+@if (area == "health")
+{
+    @cover("cover-health.jpg")
+    return;
+}
+
+@helper cover(string imagefile, string rawText = "", string positionClass = "center")
+{
+    <div class="cover">
+        <img class="cover-me hidden" href="~/assets/img/breadcrumbs/@imagefile" height="433" width="1920">
+        <div class="text-me hidden @positionClass">
+            <h1 class="text-content">
+                @Html.Raw(rawText)
+            </h1>
+        </div>
+    </div>
+}

@@ -1,0 +1,69 @@
+﻿@using System.Web.Optimization
+@using SocialNet.WebSite.Areas.Book.Models
+@model BookRequestViewModel
+
+@section styles{
+    <link rel="stylesheet" href="~/assets/plugins/line-icons-pro/styles.css">
+    <link rel="stylesheet" href="~/assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
+    <link rel="stylesheet" href="~/extentions/assets/css/consulting.style.css">
+}
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<div class="book-review">
+    <section class="intro-section g-pt-50">
+        <div class="container g-pb-50">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 text-center">
+                    <h1 class="g-mb-40">НАРЪЧНИК за балансиране на хормоните</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-12 g-pr-10 g-mb-40">
+                    <img class="book-cover img-responsive autoWidth" src="~/assets/img/ebook-cover-hormons-small.jpg" alt="">
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-12 g-pr-10">
+
+                                    <p>
+                                        Когато става въпрос за здравето, хормоните в нашето тяло играят много по-голяма роля, отколкото си представяме.
+                                    </p>
+                                    <p>
+                                        Хормоните са изключително мощни вещества. Нужно е съвсем малко количество, за да се предизвикат големи промени в клетките или дори цялото ви тяло.
+                                    </p>
+                                    <p>
+                                        Нарушеният хормонален баланс може да е причина за много неприятни симптоми, които често отдаваме на нещо друго. Такива симптоми могат да бъдат:
+                                    </p>
+                                    <ul class="list-unstyled">
+                                        <li class="g-mb-5"><i class="fa fa-angle-right g-color-default g-mr-3"></i> трудно отслабване, напълняване</li>
+                                        <li class="g-mb-5"><i class="fa fa-angle-right g-color-default g-mr-3"></i> бавен метаболизъм</li>
+                                        <li class="g-mb-5"><i class="fa fa-angle-right g-color-default g-mr-3"></i> отпадналост и умора</li>
+                                        <li class="g-mb-5"><i class="fa fa-angle-right g-color-default g-mr-3"></i> проблемно заспиване</li>
+                                        <li class="g-mb-5"><i class="fa fa-angle-right g-color-default g-mr-3"></i> проблемна кожа - акне</li>
+                                        <li class="g-mb-5"><i class="fa fa-angle-right g-color-default g-mr-3"></i> предменструален синдром, тежка менструация</li>
+                                        <li class="g-mb-5"><i class="fa fa-angle-right g-color-default g-mr-3"></i> синдром на поликистозни яйчници и дори стерилност</li>
+                                    </ul>
+                                    <p>Ако имате някой от тези оплаквания, освен че трябва да спазвате назначеното лечение, има още много неща, които може да направите сами, за да нормализирате хормоните си и дори да откриете причината за нарушения баланс и всичко това в е описано в този наръчник. <a href="#home">Вземи своя наръчник...</a></p>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 hidden-xs col-sm-2"></div>
+                <div class="col-md-6 col-sm-8 col-xs-12 text-center">
+                    <h2 id="home" class="g-mb-40">Вземи своя наръчник напълно безплатно.</h2>
+                    <span>За да го получите, просто попълнете вашите данни и ще получите Email, от където ще можете да го изтеглите.</span>
+                    <div class="g-display-table g-mb-15 g-pr-10 g-mt-10">
+                        @Html.Partial("_requestForm", Model)
+                    </div>
+                </div>
+                <div class="col-md-3 hidden-xs col-sm-2"></div>
+            </div>            
+        </div>
+    </section>
+    <section class="content-section g-pb-50"></section>
+</div>

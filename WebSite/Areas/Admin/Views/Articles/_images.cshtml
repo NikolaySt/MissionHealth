@@ -1,0 +1,15 @@
+﻿@model string[]
+@foreach (var item in Model)
+            {
+    <div class="superbox-list">
+        <img src="@Url.Content(item)" data-img="@item" data-content="@Url.Content(item)" alt="" title="" class="superbox-img" style="width:100px;">
+    </div>
+}
+<div class="superbox-float"></div>
+<link href="~/assets/plugins/superbox/superbox.css" rel="stylesheet" />
+<script src="~/assets/plugins/superbox/superbox.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.superbox').SuperBox();
+    })
+</script>

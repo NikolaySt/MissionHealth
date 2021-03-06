@@ -1,0 +1,26 @@
+﻿@using SocialNet.Backend.DataObjects
+@model Message
+@Html.LabelFor(m => m.Name)
+<div class="row sky-space-20">
+    <div class="col-md-7 col-md-offset-0">
+        <div>
+            @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+</div>
+@Html.LabelFor(m => m.EMail)
+<div class="row sky-space-20">
+    <div class="col-md-7 col-md-offset-0">
+        <div>
+            @Html.EditorFor(m => m.EMail, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+</div>
+@Html.LabelFor(m => m.Text)
+<div class="row sky-space-20">
+    <div class="col-md-11 col-md-offset-0">
+        <div>
+            @Html.TextAreaFor(m => m.Text, new { @rows = 10, @class = "form-control" })
+        </div>
+    </div>
+</div>

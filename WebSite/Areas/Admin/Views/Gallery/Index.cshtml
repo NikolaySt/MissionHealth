@@ -1,0 +1,184 @@
+﻿@model string[]
+
+@section styles{
+    <link href="~/assets/plugins/dropzone/basic.css" rel="stylesheet" />
+    <link href="~/assets/plugins/dropzone/dropzone.css" rel="stylesheet" />
+    <link href="~/assets/plugins/superbox/superbox.css" rel="stylesheet" />
+}
+<div id="content">
+    <div class="row">
+        <div class="col-xs-8">
+                <i class="fa-fw fa fa-picture-o"></i>
+                Galleries <span>
+                    >
+                    @ViewBag.SubDir
+                </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            @foreach (var item in ViewBag.Directories as List<string>)
+                    {
+                var activeStyle = "";
+                var folder = "<i class='fa fa-folder'></i>";
+                if (ViewBag.SubDir != null && item.ToLower() == ViewBag.SubDir.ToLower())
+                {
+                    activeStyle = "font-weight:bold;";
+                    folder = "<i class='fa fa-folder-open'></i>";
+                }
+                <a href="@Url.Action("index", "gallery", new { id=item })" style="margin-top:10px; display:block; text-transform:capitalize; @activeStyle" class="">@Html.Raw(folder) @item</a>
+            }
+            <br/>
+            <br />
+            <a class="btn btn-default" data-toggle="modal" data-target="#newGallery"><i class="fa fa-plus"></i> Добави галерия</a>
+            <div class="superbox-float"></div>
+        </div>
+
+        <div class="superbox col-md-9">
+            <a class="btn btn-default" data-toggle="modal" data-target="#formUpload"><i class="fa fa-upload"></i> Качи файлове</a>
+            <div id="folder-container" style="padding: 10px">
+                @foreach (var item in Model)
+                {
+                    <div class="superbox-list " style="border: 1px solid silver;">
+                        
+                        @switch (Path.GetExtension(item).ToLower())
+                        {
+                        case ".mp4":
+                        <video class="superbox-img" controls>
+                            <source src="@Url.Content(item)" type="video/mp4" data-img="@item" data-content="@Url.Content(item)">
+                            Your browser does not support the video tag.
+                        </video>    break;
+                            default:<img src="@Url.Content(item)" data-img="@item" data-content="@Url.Content(item)" alt="" title="" class="superbox-img" style="width:100px;">
+                        break;
+                        }
+                    </div>}
+                <div class="superbox-float"></div>
+            </div>
+        </div>
+        <!-- /SuperBox -->
+        <div class="superbox-show" style="height:300px; display: none"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="newGallery" tabindex="-1" role="dialog" aria-labelledby="Gallery" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="@Url.Action("NewGallery")" method="post" class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">Нова галерия</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group margin-bottom-10">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input id="Id" name="Id" class="form-control" placeholder="Име на галерия" value="" />
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary pull-right">
+                    Запис
+                </button>
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+                    Затвори
+                </button>
+                <div class="clearfix"></div>
+            </div>
+
+        </form><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="formUpload" tabindex="-1" role="dialog" aria-labelledby="Upload">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="panel-title">Избери снимка</h3>
+            </div>
+            <div class="modal-body ">
+                <form id="my-awesome-dropzone" class=" dropzone" action="@Url.Action("Upload","Gallery")" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="Id" id="Id" value="@ViewBag.SubDir" />
+                    <div class="dropzone-previews"></div>
+                    <div class="clearfix"></div>
+                    <div class="footer">
+                        <button type="submit" class="btn btn-primary pull-right">
+                            Запис
+                        </button>
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
+                            Затвори
+                        </button>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/assets/plugins/dropzone/dropzone.js"></script>
+    <script src="~/assets/plugins/superbox/superbox.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+                                Dropzone.options.myAwesomeDropzone = {
+                                    autoProcessQueue: false,
+                parallelUploads: 10,
+                maxFiles: 10,
+                paramName: "files",
+                dictDefaultMessage: "Drop image file to upload <br/> or ( click )",
+                // Dropzone settings
+                init: function () {
+                                        var myDropzone = this;
+                                        this.element.querySelector("button[type=submit]").addEventListener("click", function (e) {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            myDropzone.processQueue();
+                                        });
+                                        this.on("success", function (files, response) {
+                        $(location).attr('href', "@Url.Action()");
+                                        });
+                                        this.on("error", function (files, response) {
+                                            toastr.error(response);
+                                        });
+                                    }
+                                }
+            $('.superbox').SuperBox();
+                    })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.superbox').SuperBox();
+            $(".superbox").on("click", "#imgInfoBox .select", function () {
+                var file = $(this).closest("#imgInfoBox").attr("src");
+            });
+            $(".superbox").on("click", "#imgInfoBox .delete", function () {
+                var file = $(this).closest("#imgInfoBox").attr("src");
+                var container = $(this).closest(".superbox-list");
+                if (!confirm("Наистина ли искате да изтрите тази снимка?")) return;
+
+                $.ajax({
+                    type: 'GET',
+                    url: "@Url.Action("delete", "gallery")?id=" + file,
+                    success: function (response, message, ctx) {
+                        window.location.replace("@Url.Action()");
+                    },
+                    error: function (response, message, ctx) {
+
+                    }
+                });
+            });
+        })
+    </script>
+}

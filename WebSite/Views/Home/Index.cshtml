@@ -1,0 +1,198 @@
+﻿@using SocialNet.Backend.DataObjects
+@model List<Article>
+@{
+    var articles = ViewBag.Articles as List<Article>;
+}
+<div class="cover" style="background-color: #DBD4B5;">
+    <img class="cover-me hidden" href="~/assets/img/breadcrumbs/cover-home-page.jpg" height="650" width="1920">
+    <a href="~/book/title/наръчник-за-балансиране-на-хормоните/review/69f64e0b-ea65-4811-94b9-19a995b972bc" class="hidden book-me">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2">
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-5">
+                <img class="book-cover" href="~/assets/img/ebook-cover-hormons-small.jpg" alt="Наръчник за балансиране на хормоните" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2">
+            </div>
+            <div class="col-lg-6 col-md-7 col-sm-8">
+                <div class="text" style="">
+                    <h1 class="text-content">
+                        <i><strong>Научи повече</strong> и вземи своя наръчник напълно <strong>безплатно</strong> <span class="fa fa-chevron-circle-right"></span></i>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </a>
+    <div class="text-me hidden" style="">
+        <h1 class="text-content">
+            <i><strong>Мисия Здраве</strong> е повече от блог. <br class="hidden-info-xs" />Това е начин на живот, защото най-ценно е нашето здраве.</i>
+            <br class="hidden-info-lg" />
+            <i class="hidden-info-xs">Моята мисия е да ви покажа, че да го постигнете, е лесно.</i>
+        </h1>
+    </div>
+</div>
+
+<div class="container content container-book-review visible-xs">
+
+    <div class="row">
+        <div class="col-md-5 hidden-xs">
+        </div>
+        <div class="col-md-7 col-xs-12">
+            <div class="headline"><h2>Наръчник за балансиране на хормоните</h2></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="col-xs-5">
+                <a href="~/book/title/наръчник-за-балансиране-на-хормоните/review/69f64e0b-ea65-4811-94b9-19a995b972bc">
+                    <img class="book-cover img-responsive" src="~/assets/img/ebook-cover-hormons-x-small.jpg" alt="Наръчник за балансиране на хормоните" />
+                </a>
+            </div>
+            <p class="text">Когато става въпрос за здравето, хормоните в нашето тяло играят много по-голяма роля, отколкото си представяме.</p>
+            <a href="~/book/title/наръчник-за-балансиране-на-хормоните/review/69f64e0b-ea65-4811-94b9-19a995b972bc">
+                <p class="text read-more"><strong>Научи повече</strong> и вземи своя наръчник напълно <strong>безплатно <i class="fa fa-chevron-circle-right"></i></strong></p>
+            </a>
+        </div>
+    </div>
+
+</div>
+<div class="container content">
+    <div class="row blog-page">
+        <div class="col-md-9 md-margin-bottom-40 feed">
+            <div class="headline"><h2>Статии</h2></div>
+            <div class="container-articles">
+                @Html.Partial("_articlesFeed", Model)
+            </div>
+            <div class="loading margin-bottom-100" data-page="1">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="headline"><h2>Вижте още</h2></div>
+            <div class="container-interesting-articles"></div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            jQuery.fn.positionMe = function () {
+                var oH = $(window).height();
+                var oW = $(window).width();
+                var iH = this.outerHeight();
+                var iW = this.outerWidth();
+                if (oH / iH > oW / iW) {
+                    this.css("width", oW);
+                    this.css("height", iH * (oW / iW))
+                } else {
+                    this.css("height", oH);
+                    this.css("width", iW * (oH / iH));
+                }
+                return this;
+            };
+            jQuery.fn.positionBook = function () {
+                var cover = $(".cover-me");
+                var w = cover.width();
+                var h = cover.height();
+                var top = cover.position().top;
+                var book = $(this).find("img");
+                var left = w / 2;
+                var top = top + (h * 0.1);
+                var height = h - (h * 0.3);
+                book.css("left", left);
+                book.css("top", top);
+                book.css("height", height);
+                this.css("left", left);
+                this.css("top", top);
+                this.css("height", height);
+                this.css("right", 15);
+                return this;
+            };
+            jQuery.fn.positionText = function () {
+                var cover = $(".cover-me");
+                var w = cover.width();
+                var h = cover.height();
+                var top = cover.position().top;
+                this.css("top", h / 2);
+                this.css("left", w / 2);
+                this.find("i").css("font-size", 25 - (1920 - w) / 138);
+                this.css("top", top + (h / 2 - this.height() / 2));
+                return this;
+            };
+            jQuery.fn.positionTextSize = function () {
+                var cover = $(".cover-me");
+                var w = cover.width();
+                this.find("i").css("font-size", 25 - (1920 - w) / 138);
+                return this;
+            };
+            jQuery.fn.vpositionText = function () {
+                var cover = $(".cover-me");
+                var h = cover.height();
+                var top = cover.position().top;
+                this.css("top", top + (h / 2 - this.height() / 2));
+                return this;
+            };
+            $(window).resize(function () {
+                $(".cover-me").positionMe();
+                if ($(window).width() >= 768) {
+                    if (!$(".text-me").hasClass("hidden")) {
+                        $(".text-me").addClass("hidden");
+                    }
+                    loadBookImage();
+                    if ($(".book-me").hasClass("hidden")) {
+                        $(".book-me").removeClass("hidden");
+                    }
+                    $(".book-me").positionBook();
+                    $(".book-me .text").positionTextSize();
+                } else {
+                    $(".text-me").positionText();
+                    if ($(".text-me").hasClass("hidden")) {
+                        $(".text-me").removeClass("hidden");
+                        $(".text-me").vpositionText();
+                    }
+                    if (!$(".book-me").hasClass("hidden")) {
+                        $(".book-me").addClass("hidden");
+                    }
+                }
+            });
+            initCovers();
+            function loadBookImage() {
+                var imageBook = $(".book-me img");
+                if (imageBook[0].src == "") {
+                    imageBook[0].onload = function () {
+                        $(".book-me").positionBook();
+                        $(".book-me .text").positionTextSize();
+                        $(".book-me").removeClass("hidden");
+                    };
+                    imageBook[0].src = imageBook.attr("href");
+                }
+            }
+            function initCovers() {
+                var image = $(".cover-me");
+                var url = image.attr("href");
+                image[0].onload = function () {
+                    $(this).positionMe();
+                    $(this).removeClass("hidden");
+                    if ($(window).width() >= 768) {
+                        loadBookImage();
+                    } else {
+                        $(".text-me").positionText();
+                        $(".text-me").removeClass("hidden");
+                        $(".text-me").vpositionText();
+                    }
+                };
+                image[0].src = url;
+            };
+            $(window).scroll(function () {
+                $(this).loadingArticles("@Url.Action("articles")", $(".container-articles"))
+            });
+            $.ajax({
+                url: "@Url.Action("Interesting")",
+                cache: false
+            }).done(function (html) {
+                $(".container-interesting-articles").append(html);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,95 @@
+﻿@using SocialNet.Backend.DataObjects
+@{
+    Layout = "~/views/shared/_Layout.cshtml";
+    var articles = ViewBag.Articles as List<Article> ?? new List<Article>();
+    var more = ViewBag.More as MoreViewModel;
+}
+
+@Html.Partial("_sectionCovers")
+
+<div class="container content-sm">
+
+    <div class="row blog-page">
+        <div class="col-md-9 md-margin-bottom-40">
+            @Html.Partial("_sectionInfo")
+            <div class="feed">
+                <div class="container-articles">
+                    @Html.Partial("_articlesFeed", articles)
+                </div>
+                <div class="loading" data-page="1">                        
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            @Html.Partial("_more", more)
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            jQuery.fn.positionMe = function () {
+                var oH = $(window).outerHeight();
+                var oW = $(window).outerWidth();
+                var iH = this.height();
+                var iW = this.width();
+                if (oH / iH > oW / iW) {
+                    this.css("width", oW);
+                    this.css("height", iH * (oW / iW))
+                } else {
+                    this.css("height", oH);
+                    this.css("width", iW * (oH / iH));
+                }
+                return this;
+            };
+            jQuery.fn.positionText = function () {
+                var cover = $(".cover-me");
+                var w = cover.width();
+                var h = cover.height();
+                var top = cover.position().top;
+                this.css("top", h / 3);
+                if ($(this).hasClass("left")) {
+                    this.css("left", w / 10);
+                    this.css("width", w / 2);
+                } else if ($(this).hasClass("right")) {
+                    this.css("left", w / 2);
+                } else if ($(this).hasClass("center")) {
+                    this.css("width", w / 3);
+                    this.css("left", w / 3);
+                };
+                this.find("span").css("font-size", 25 - (1920 - w) / 138);
+                this.css("top", top + (h / 2 - this.height() / 2));
+                return this;
+            };
+            jQuery.fn.vpositionText = function () {
+                var cover = $(".cover-me");
+                var h = cover.height();
+                var top = cover.position().top;
+                this.css("top", top + (h / 2 - this.height() / 2));
+                return this;
+            };
+            $(window).resize(function () {
+                $(".cover-me").positionMe();
+                $(".text-me").positionText();
+            });
+            initCovers();
+            function initCovers() {
+                var image = $(".cover-me");
+                var theurl = image.attr("href");
+                image[0].onload = function () {
+                    $(this).positionMe();
+                    $(this).removeClass("hidden");
+                    $(".text-me").positionText();
+                    $(".text-me").removeClass("hidden");
+                    $(".text-me").vpositionText();
+                };
+                image[0].src = image.attr("href");
+            };
+            $(window).scroll(function () {
+                $(this).loadingArticles("@Url.Action()", $(".container-articles"))
+            });
+        });
+    </script>
+}
+
